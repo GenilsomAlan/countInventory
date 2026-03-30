@@ -119,11 +119,8 @@ h1{
     width: 100%;
     height: 100%;
     border: none;
-    background-color: orangered;
+    background-color: rgb(255, 69, 0);
     color: white;
     font-size: 14px;
     cursor: pointer;
-}
-.status-btn:hover{
-    background-color: green;
 }
