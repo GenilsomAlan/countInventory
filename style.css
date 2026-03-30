@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+header{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    background-color: orangered;
+    color: antiquewhite;
+    align-items: center;
+}
+main{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+h1{
+    font-family: 'Courier New', Courier, monospace;
+    text-indent: 40px;
+}
+.cabecalho{
+    width: 80%;
+    height: 35px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+.cabecalho > div{
+    font-size: 26px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    text-align: center;
+    font-size: 16px;
+}
+.dados{
+    width: 80%;
+}
+.dados > div{
+    width: 100%;
+    height: 25px;
+    display: flex;
+    flex-wrap: nowrap;
+    font-size: 15px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+.reservado{
+    width: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: none;
+    border-bottom: none;
+}
+.posicao{
+    width: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: none;
+    border-bottom: none;
+}
+.caixas{
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: none;
+    border-bottom: none;
+}
+.pacotes{
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.macos{
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sku{
+    width: 7%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.descricao{
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.observacao{
+    width: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.status{
+    width: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.edite{
+    width: 8%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.reservado, .posicao, .caixas, .pacotes, .macos, .sku, .descricao, .observacao, .status, .edite{
+    border: 1px solid black;
+    margin-left: -0.8px;
+    margin-top: -0.7px;
+}
+.status-btn, .edit-btn{
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: orangered;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+.status-btn:hover{
+    background-color: green;
+}
