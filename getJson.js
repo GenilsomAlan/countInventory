@@ -14,13 +14,13 @@ fetch('betha.json')
             <div class="posicao">
                 <p>${item.Endereco}</p>
             </div>
-            <div class="caixas">
-                <p>${item["Dispon.Exped."]/10}</p>
+            <div class="caixas" id="caixas${id}">
+                <p>${item["Dispon.Exped."]}</p>
             </div>
-            <div class="pacotes">
+            <div class="pacotes" id="pacotes${id}">
                 <p>${0}</p>
             </div>
-            <div class="macos">
+            <div class="macos" id="macos${id}">
                 <p>${0}</p>
             </div>
             <div class="sku">
@@ -36,7 +36,7 @@ fetch('betha.json')
                 <button class="status-btn" id="item${id}" value=0>OK</button>
             </div>
             <div class="edite">
-                <button class="edit-btn" id="itemID${id}">Editar</button>
+                <button class="edit-btn" id="itemID${id}" value=false>Editar</button>
             </div>
         `
         id = id + 1
