@@ -39,6 +39,7 @@ fetch('betha.json')
                 <button class="edit-btn" id="itemID${id}" value=false>Editar</button>
             </div>
         `
+        div.id = `line${id}`
         id = id + 1
         container.appendChild(div)        
     });

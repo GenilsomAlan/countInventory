@@ -21,7 +21,7 @@ h1{
     text-indent: 40px;
 }
 .cabecalho{
-    width: 80%;
+    width: 70%;
     height: 35px;
     display: flex;
     flex-wrap: nowrap;
@@ -33,7 +33,7 @@ h1{
     font-size: 16px;
 }
 .dados{
-    width: 80%;
+    width: 70%;
 }
 .dados > div{
     width: 100%;
@@ -44,7 +44,7 @@ h1{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 .reservado{
-    width: 8%;
+    width: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -52,7 +52,7 @@ h1{
     border-bottom: none;
 }
 .posicao{
-    width: 8%;
+    width: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -87,7 +87,7 @@ h1{
     
 }
 .descricao{
-    width: 25%;
+    width: 30%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,13 +99,13 @@ h1{
     align-items: center;
 }
 .status{
-    width: 8%;
+    width: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .edite{
-    width: 8%;
+    width: 10%;
     display: flex;
     justify-content: center;
     align-items: center;

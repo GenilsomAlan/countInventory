@@ -19,9 +19,11 @@ window.addEventListener("load", function(){
                         if(buttonBkg === "rgb(255, 69, 0)" || buttonBkg === "orangered"){
                                 buttonStatus.style.backgroundColor = "green"
                                 buttonStatus.value = 1
+                                effectsLineColors(buttonStatus.id.replace("item", "line"), "rgb(74, 244, 74)")
                         }else if(buttonBkg === "rgb(0, 128, 0)" || buttonBkg === "green"){
                                 buttonStatus.style.backgroundColor = "orangered"
                                 buttonStatus.value = 0
+                                effectsLineColors(buttonStatus.id.replace("item", "line"), "rgb(255, 255, 255)")
                         }                
                 })
 
@@ -44,7 +46,13 @@ window.addEventListener("load", function(){
                                 macos.contentEditable = "true"
                                 buttonEdit.innerText = "Salvar"
                                 buttonEdit.value = true
+                                effectsLineColors(buttonEdit.id.replace("itemID", "line"), "aqua")
                         }
                 })
-        }        
+        }
+        
+        effectsLineColors = (idLine, colorLine) =>{
+                const line = document.getElementById(`${idLine}`)
+                line.style.backgroundColor = colorLine
+        }
 })
