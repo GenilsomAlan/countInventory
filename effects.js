@@ -20,11 +20,13 @@ window.addEventListener("load", function(){
                                 buttonStatus.style.backgroundColor = "green"
                                 buttonStatus.value = 1
                                 buttonStatus.innerText = "OK"
+                                console.log("entrou no if", buttonBkg)
                                 effectsLineColors(buttonStatus.id.replace("item", "line"), "rgb(74, 244, 74)")
                         }else if(buttonBkg === "rgb(0, 128, 0)" || buttonBkg === "green"){
                                 buttonStatus.style.backgroundColor = "orangered"
                                 buttonStatus.value = 0
                                 buttonStatus.innerText = "*"
+                                console.log("entrou no else if", buttonBkg)
                                 effectsLineColors(buttonStatus.id.replace("item", "line"), "rgb(255, 255, 255)")
                         }                
                 })
@@ -40,6 +42,7 @@ window.addEventListener("load", function(){
                                 macos.contentEditable = "false"
                                 buttonEdit.innerText = "Editar"
                                 buttonEdit.value = false
+                                console.log("entrou no if", caixasEdit)
                         }else{
                                 console.log("entrou no else", caixasEdit)
                                 console.log("Alterando o item de id: ", buttonEdit.id)
@@ -48,6 +51,7 @@ window.addEventListener("load", function(){
                                 macos.contentEditable = "true"
                                 buttonEdit.innerText = "Salvar"
                                 buttonEdit.value = true
+                                console.log("entrou no else", caixasEdit)
                                 effectsLineColors(buttonEdit.id.replace("itemID", "line"), "aqua")
                         }
                 })
