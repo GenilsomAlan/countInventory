@@ -13,7 +13,7 @@ window.addEventListener("load", function(){
                 const macos = document.getElementById(`macos${id}`)
 
                 buttonStatus.addEventListener("click", () =>{
-                        const styleCss = this.window.getComputedStyle(buttonStatus)
+                        const styleCss = window.getComputedStyle(buttonStatus)
                         const buttonBkg = styleCss.backgroundColor
 
                         if(buttonBkg === "rgb(255, 69, 0)" || buttonBkg === "orangered"){
@@ -41,7 +41,7 @@ window.addEventListener("load", function(){
                                 pacotes.contentEditable = "false"
                                 macos.contentEditable = "false"
                                 buttonEdit.innerText = "Editar"
-                                buttonEdit.value = false
+                                buttonEdit.value = "false"
                                 console.log("entrou no if", caixasEdit)
                         }else{
                                 console.log("entrou no else", caixasEdit)
@@ -50,7 +50,7 @@ window.addEventListener("load", function(){
                                 pacotes.contentEditable = "true"
                                 macos.contentEditable = "true"
                                 buttonEdit.innerText = "Salvar"
-                                buttonEdit.value = true
+                                buttonEdit.value = "true"
                                 console.log("entrou no else", caixasEdit)
                                 effectsLineColors(buttonEdit.id.replace("itemID", "line"), "aqua")
                         }
