@@ -33,7 +33,7 @@ fetch('betha.json')
                 <p>${"OK"}</p>
             </div>
             <div class="status">
-                <button class="status-btn" id="item${id}" value=0>OK</button>
+                <button class="status-btn" id="item${id}" value=0>*</button>
             </div>
             <div class="edite">
                 <button class="edit-btn" id="itemID${id}" value=false>Editar</button>
