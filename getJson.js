@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 container.appendChild(div);
                 id++;
             });
-
+            initializeEffects();
         })
         .catch(error => console.error("Erro ao carregar JSON:", error));
 

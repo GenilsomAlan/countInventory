@@ -1,4 +1,4 @@
-window.addEventListener("load", function(){
+initializeEffects = () =>{
         const dados = document.getElementById("list")
         const arrayDados = [...dados.children]
         console.log(arrayDados.length)
@@ -56,9 +56,8 @@ window.addEventListener("load", function(){
                         }
                 })
         }
-        
-        effectsLineColors = (idLine, colorLine) =>{
-                const line = document.getElementById(`${idLine}`)
-                line.style.backgroundColor = colorLine
-        }
-})
+}
+ effectsLineColors = (idLine, colorLine) =>{
+        const line = document.getElementById(`${idLine}`)
+        line.style.backgroundColor = colorLine
+}
