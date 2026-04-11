@@ -4,29 +4,29 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
 
-            const container = document.getElementById("list");
+            const container = document.getElementById("list")
 
             // 🔥 REMOVE DUPLICADOS (baseado em SKU + Endereco)
-            const itensUnicos = [];
-            const mapa = new Set();
+            const itensUnicos = []
+            const mapa = new Set()
 
             data.forEach(item => {
-                const chave = `${item.SKU}-${item.Endereco}`;
+                const chave = `${item.SKU}-${item.Endereco}`
 
                 if (!mapa.has(chave)) {
-                    mapa.add(chave);
-                    itensUnicos.push(item);
+                    mapa.add(chave)
+                    itensUnicos.push(item)
                 }
             });
 
-            let id = 1;
+            let id = 1
 
             itensUnicos.forEach(item => {
 
-                const div = document.createElement("div");
+                const div = document.createElement("div")
 
-                div.id = `line${id}`;
-                div.classList.add("linha");
+                div.id = `line${id}`
+                div.classList.add("linha")
 
                 div.innerHTML = `
                     <div class="reservado">
@@ -68,16 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="edite">
                         <button class="edit-btn" id="itemID${id}" value="false">Editar</button>
                     </div>
-                `;
+                `
 
-                container.appendChild(div);
-                id++;
-            });
-            initializeEffects();
+                container.appendChild(div)
+                id++
+            })
+            initializeEffects()
         })
-        .catch(error => console.error("Erro ao carregar JSON:", error));
+        .catch(error => console.error("Erro ao carregar JSON:", error))
 
-});
+})
 
 
 
