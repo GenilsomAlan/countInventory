@@ -38,15 +38,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
 
                     <div class="caixas" id="caixas${id}">
-                        <p>${item["Dispon.Exped."] ?? 0}</p>
+                        ${item["Dispon.Exped."] ?? 0}
                     </div>
 
                     <div class="pacotes" id="pacotes${id}">
-                        <p>0</p>
+                        ${0}
                     </div>
 
                     <div class="macos" id="macos${id}">
-                        <p>0</p>
+                        ${0}
                     </div>
 
                     <div class="sku">
