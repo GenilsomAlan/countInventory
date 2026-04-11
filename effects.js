@@ -11,7 +11,7 @@ initializeEffects = () =>{
 
                 buttonStatus.addEventListener("click", () =>{
                         if(buttonEdit.value === "true"){
-                                console.log("Salve as alterações antes de mudar o status")
+                                alert("Salve as alterações antes de mudar o status")
                         }else{
                                 const styleCssButton = window.getComputedStyle(buttonStatus)
                                 const styleColorLine = window.getComputedStyle(line)
@@ -22,7 +22,7 @@ initializeEffects = () =>{
                 })
                 buttonEdit.addEventListener("click", () =>{
                         if(buttonStatus.innerText === "OK"){
-                                console.log("Desative o status antes de editar")
+                                alert("Desative o status antes de editar")
                         }else{
                                 editItems(buttonEdit, caixas)
                                 editItems(buttonEdit, pacotes)
