@@ -1,7 +1,9 @@
 initializeEffects = () =>{
         const dados = document.getElementById("list")
         const arrayDados = [...dados.children]
-        for(let id = 1; id <= arrayDados.length; id++){
+        arrayDados.forEach((linha, index) =>{
+                const id = index + 1
+
                 const buttonStatus = document.getElementById(`item${id}`)
                 const buttonEdit = document.getElementById(`itemID${id}`)
                 const caixas = document.getElementById(`caixas${id}`)
@@ -10,54 +12,49 @@ initializeEffects = () =>{
                 const line = document.getElementById(`line${id}`)
 
                 buttonStatus.addEventListener("click", () =>{
-                        if(buttonEdit.value === "true"){
+                        if(buttonEdit.dataset.editing === "true"){
                                 alert("Salve as alterações antes de mudar o status")
+                                return
+                        }
+
+                        buttonStatus.classList.toggle("ativo")
+                        line.classList.toggle("linha-ok")
+
+                        if(buttonStatus.classList.contains("ativo")){
+                                buttonStatus.innerText = "OK"
+                                buttonStatus.dataset.editing = "true"
                         }else{
-                                const styleCssButton = window.getComputedStyle(buttonStatus)
-                                const styleColorLine = window.getComputedStyle(line)
-                                defineColor(styleCssButton.backgroundColor, "rgb(255, 69, 0)", "rgb(6, 185, 6)", buttonStatus)
-                                defineColor(styleColorLine.backgroundColor, "rgb(255, 255, 255)", "rgb(79, 253, 79)", line)
-                                defineTextEndValueButton(buttonStatus)
+                                buttonStatus.innerText = "*"
+                                buttonStatus.dataset.editing = "false"
                         }
                 })
                 buttonEdit.addEventListener("click", () =>{
-                        if(buttonStatus.innerText === "OK"){
+                        if(buttonStatus.dataset.editing === "true"){
                                 alert("Desative o status antes de editar")
+                                return
+                        }
+
+                        const editing = buttonEdit.dataset.editing === "true"
+
+                        if(editing){
+                                caixas.contentEditable = false
+                                pacotes.contentEditable = false
+                                macos.contentEditable = false
+
+                                buttonEdit.innerText = "Editar"
+                                buttonEdit.dataset.editing = "false"
+
+                                line.classList.remove("linha-editing")
                         }else{
-                                editItems(buttonEdit, caixas)
-                                editItems(buttonEdit, pacotes)
-                                editItems(buttonEdit, macos)
-                                defineColor(window.getComputedStyle(line).backgroundColor, "rgb(255, 255, 255)", "rgb(187, 191, 187)", line)
-                        }                
+                                caixas.contentEditable = true
+                                pacotes.contentEditable = true
+                                macos.contentEditable = true
+
+                                buttonEdit.innerText = "Salvar"
+                                buttonEdit.dataset.editing = "true"
+
+                                line.classList.add("linha-editing")
+                        }
                 })
-        }
-}
-defineColor = (color, newColorValue0, newColorValue1, elementt) =>{
-         if(color === newColorValue0){
-                elementt.style.backgroundColor = newColorValue1
-        }else if(color === newColorValue1){
-                elementt.style.backgroundColor = newColorValue0
-        }
-}
-defineTextEndValueButton = (button) =>{
-        if(button.innerText === "*"){
-                button.innerText = "OK"
-                button.dataset.editing = 1
-        }else if(button.innerText === "OK"){
-                button.innerText = "*"
-                button.dataset.editing = 0
-        }
-}
-editItems = (buttonEdit, item) =>{
-         if(item.contentEditable === "true"){
-                console.log("Salvando o item de id: ", buttonEdit.id)
-                item.contentEditable = "false"
-                buttonEdit.innerText = "Editar"
-                buttonEdit.value = "false"
-        }else{
-                console.log("Alterando o item de id: ", buttonEdit.id)
-                item.contentEditable = "true"
-                buttonEdit.innerText = "Salvar"
-                buttonEdit.value = "true"
-        }
+        })
 }

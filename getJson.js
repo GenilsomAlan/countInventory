@@ -6,7 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const container = document.getElementById("list")
 
-            // 🔥 REMOVE DUPLICADOS (baseado em SKU + Endereco)
             const itensUnicos = []
             const mapa = new Set()
 
@@ -62,11 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
 
                     <div class="status">
-                        <button class="status-btn" id="item${id}" value="0">*</button>
+                        <button class="status-btn" id="item${id}" value="0" data-editing="false">*</button>
                     </div>
 
                     <div class="edite">
-                        <button class="edit-btn" id="itemID${id}" value="false">Editar</button>
+                        <button class="edit-btn" id="itemID${id}" value="false" data-editing="false">Editar</button>
                     </div>
                 `
 
