@@ -10,6 +10,9 @@ initializeEffects = () =>{
                 const pacotes = document.getElementById(`pacotes${id}`)
                 const macos = document.getElementById(`macos${id}`)
                 const line = document.getElementById(`line${id}`)
+                const divergencesBtn = document.getElementsByClassName("divergences-btn")[0]
+                
+                divergencesBtn.disabled = true
 
                 buttonStatus.addEventListener("click", () =>{
                         if(buttonEdit.dataset.editing === "true"){
@@ -23,9 +26,16 @@ initializeEffects = () =>{
                         if(buttonStatus.classList.contains("ativo")){
                                 buttonStatus.innerText = "OK"
                                 buttonStatus.dataset.editing = "true"
+
+                                
                         }else{
                                 buttonStatus.innerText = "*"
                                 buttonStatus.dataset.editing = "false"
+                        }
+
+                        if(verificarEncerramentoDaContagem()){
+                                divergencesBtn.classList.add("divergences-btn-ativo")
+                                divergencesBtn.disabled = false
                         }
                 })
                 buttonEdit.addEventListener("click", () =>{

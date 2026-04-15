@@ -36,15 +36,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         <p>${item.Endereco ?? "-"}</p>
                     </div>
 
-                    <div class="caixas" id="caixas${id}">
+                    <div class="caixas" data-original="${item["Dispon.Exped."] ?? 0}" id="caixas${id}">
                         ${item["Dispon.Exped."] ?? 0}
                     </div>
 
-                    <div class="pacotes" id="pacotes${id}">
+                    <div class="pacotes" data-original="${0}" id="pacotes${id}">
                         ${0}
                     </div>
 
-                    <div class="macos" id="macos${id}">
+                    <div class="macos" data-original="${0}" id="macos${id}">
                         ${0}
                     </div>
 
@@ -61,11 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     </div>
 
                     <div class="status">
-                        <button class="status-btn" id="item${id}" value="0" data-editing="false">*</button>
+                        <button class="status-btn" id="item${id}" data-editing="false">*</button>
                     </div>
 
                     <div class="edite">
-                        <button class="edit-btn" id="itemID${id}" value="false" data-editing="false">Editar</button>
+                        <button class="edit-btn" id="itemID${id}" data-editing="false">Editar</button>
                     </div>
                 `
 
