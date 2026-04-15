@@ -36,7 +36,9 @@ initializeEffects = () =>{
                         if(verificarEncerramentoDaContagem()){
                                 divergencesBtn.classList.add("divergences-btn-ativo")
                                 divergencesBtn.disabled = false
+                                return
                         }
+                        divergencesBtn.classList.remove("divergences-btn-ativo")
                 })
                 buttonEdit.addEventListener("click", () =>{
                         if(buttonStatus.dataset.editing === "true"){
