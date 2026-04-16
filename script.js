@@ -10,6 +10,7 @@ const verificarEncerramentoDaContagem = () => {
 const btnDivergences = document.getElementById("showDivergences")
 btnDivergences.addEventListener("click", () =>{
     const divergencias = coletarDivergencias()
+    const dadosContagem = getDadosContagem()
 
     document.body.innerHTML = htmlDivergencias()
 
@@ -23,51 +24,19 @@ btnDivergences.addEventListener("click", () =>{
     divergencias.forEach(item =>{
         const div = document.createElement("div")
         div.classList.add("linha")
-        div.innerHTML = `
-            <div class="reservado">
-                <p>${item.reservado}</p>
-            </div>
 
-            <div class="posicao">
-                <p>${item.posicao}</p>
-            </div>
+        div.innerHTML = divsItems(item)
 
-            <div class="caixas">
-                ${item.caixas}
-            </div>
-
-            <div class="pacotes" ">
-                ${item.pacotes}
-            </div>
-
-            <div class="macos">
-                ${item.macos}
-            </div>
-
-            <div class="sku">
-                <p>${item.sku}</p>
-            </div>
-
-            <div class="descricao">
-                <p>${item.descricao}</p>
-            </div>
-
-            <div class="observacao">
-                <p>${item.observacao}</p>
-            </div>
-
-            <div class="status">
-                <button class="status-btn" data-editing="false">*</button>
-            </div>
-
-            <div class="edite">
-                <button class="edit-btn" data-editing="false">Editar</button>
-            </div>
-        `
-        container.appendChild(div)
+            container.appendChild(div)
 
     })
 })
+
+const getDadosContagem = () => {
+    const linhas = document.getElementById("list")
+
+    console.log(linhas)
+}
 
 const coletarDivergencias = () => {
     const linhas = document.querySelectorAll('.linha')
@@ -151,7 +120,51 @@ const htmlDivergencias = () => {
             </div>
         </div>
 
-        <div id="resultadoDivergencias"></div>
+        <div class="dados" id="resultadoDivergencias"></div>
     </main>
     `
+}
+
+const divsItems = (item) =>{
+    return `
+            <div class="reservado">
+                <p>${item.reservado}</p>
+            </div>
+
+            <div class="posicao">
+                <p>${item.posicao}</p>
+            </div>
+
+            <div class="caixas">
+                ${item.caixas}
+            </div>
+
+            <div class="pacotes" ">
+                ${item.pacotes}
+            </div>
+
+            <div class="macos">
+                ${item.macos}
+            </div>
+
+            <div class="sku">
+                <p>${item.sku}</p>
+            </div>
+
+            <div class="descricao">
+                <p>${item.descricao}</p>
+            </div>
+
+            <div class="observacao">
+                <p>${item.observacao}</p>
+            </div>
+
+            <div class="status">
+                <button class="status-btn" data-editing="false">*</button>
+            </div>
+
+            <div class="edite">
+                <button class="edit-btn" data-editing="false">Editar</button>
+            </div>
+        `
 }

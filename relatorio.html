@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Inventário</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script src="getJson.js" defer></script>
+    <script src="effects.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <h1>Inventário</h1>
+    </header>
+
+    <main>
+        <div class="cabecalho">
+
+            <div class="reservado">
+                <p>Reservado</p>
+            </div>
+
+            <div class="posicao">
+                <p>Posição</p>
+            </div>
+
+            <div class="caixas">
+                <p>Caixas</p>
+            </div>
+
+            <div class="pacotes">
+                <p>Pacotes</p>
+            </div>
+
+            <div class="macos">
+                <p>Maços</p>
+            </div>
+
+            <div class="sku">
+                <p>SKU</p>
+            </div>
+
+            <div class="descricao">
+                <p>Descrição</p>
+            </div>
+
+            <div class="observacao">
+                <p>Observação</p>
+            </div>
+
+            <div class="status">
+                <p>Status</p>
+            </div>
+
+            <div class="edite">
+                <p>Editar</p>
+            </div>
+        </div>
+
+        <!-- 🔥 container principal -->
+        <div class="dados" id="list"></div>
+    </main>
+
+    <footer>
+        <div class="buttonsOptions">
+            <!--<button id="save" class="save-btn">Salvar</button>-->
+            <button id="showDivergences" class="divergences-btn">Mostrar Divergências</button>
+        </div>
+    </footer>
+</body>
+</html>
