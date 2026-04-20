@@ -46,7 +46,7 @@
                 const sheet = workbook.Sheets[workbook.SheetNames[0]]
                 console.log(workbook.SheetNames)
                 json = XLSX.utils.sheet_to_json(sheet, { defVal: ""})
-                console.log(json)
+                // console.log(json)
             }
             reader.readAsArrayBuffer(archive)
         })
@@ -55,11 +55,11 @@
         const mainGetDT = document.getElementById("mainGet")
         gerarTabela.addEventListener('click', () =>{
             if(json){
-                // alert("Json carregado! Gerando Tabela!")
+                alert("Json carregado! Gerando Tabela!")
                 removeElement(mainGetDT)
                 changeData(json)
             }else{
-                // alert("Importe o arquivo .xlsx")
+                alert("Importe o arquivo .xlsx")
             }
         })
     </script>
