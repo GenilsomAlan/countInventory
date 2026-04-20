@@ -3,7 +3,14 @@ const cabecalho = `<div class="cabecalho"><div class="reservado"><p>Reservado</p
 <p>Maços</p></div><div class="sku"><p>SKU</p></div><div class="descricao"><p>Descrição</p></div><div class="observacao"><p>Observação</p></div><div class="status"><p>Status</p></div><div class="edite"><p>Editar</p></div></div><div class="dados" id="list"></div>`
 const footer = `<div class="buttonsOptions"><!--<button id="save" class="save-btn">Salvar</button>--><button id="showDivergences" class="divergences-btn">Mostrar Divergências</button></div>`
 
+
 const changeData = (json) =>{
+    const bodyClass = document.querySelector('body')
+    if(bodyClass){
+        bodyClass.classList.remove("body")
+        bodyClass.classList.toggle("bodyTable")
+    }
+
     newElement('header', 'body', headerTitle)
     newElement('main', 'body', cabecalho)
     newElement('footer', 'body', footer)
@@ -66,8 +73,8 @@ const changeData = (json) =>{
 }
 
 const newElement = (element, father, content) => {
-    const elementFather = document.getElementById(father)
+    const elementFather = document.querySelector(father)
     const newElementCreated = document.createElement(element)
     newElementCreated.innerHTML = content
-    body.appendChild(newElementCreated)
+    elementFather.appendChild(newElementCreated)
 }
