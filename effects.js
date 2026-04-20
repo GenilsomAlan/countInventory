@@ -13,7 +13,9 @@ initializeEffects = () =>{
                 const sku = document.getElementById(`sku${id}`)
                 const divergencesBtn = document.getElementsByClassName("divergences-btn")[0]
                 
-                divergencesBtn.disabled = true
+                if(divergencesBtn){
+                        divergencesBtn.disabled = true
+                }
 
                 buttonStatus.addEventListener("click", () =>{
                         if(buttonEdit.dataset.editing === "true"){
