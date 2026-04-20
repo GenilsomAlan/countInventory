@@ -26,37 +26,11 @@
     <script src="getJson.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script defer>
-        const removeElement = (element) =>{
-            element.remove()
-        }
+        document.addEventListener("DOMContentLoaded", () =>{
+            const dadosSalvos = localStorage.getItem("inventarioEstado")
 
-        const inputBTN = document.getElementById("input-btn")
-        let json
-        inputBTN.addEventListener("change", (event) => {
-            const archive = event.target.files[0]
-
-            if(!archive) return
-
-            const reader = new FileReader()
-            reader.onload = (e) => {
-                const data = new Uint8Array(e.target.result)
-                const workbook = XLSX.read(data, {type: "array"})
-                const sheet = workbook.Sheets[workbook.SheetNames[0]]
-                json = XLSX.utils.sheet_to_json(sheet, { defval: ""})
-                // console.log(json)
-            }
-            reader.readAsArrayBuffer(archive)
-        })
-
-        const gerarTabela = document.getElementById("gerar")
-        const mainGetDT = document.getElementById("mainGet")
-        gerarTabela.addEventListener('click', () =>{
-            if(json){
-                removeElement(mainGetDT)
-                classBody()
-                changeData(json)
-            }else{
-                alert("Importe o arquivo .xlsx")
+            if(dadosSalvos){
+                
             }
         })
     </script>

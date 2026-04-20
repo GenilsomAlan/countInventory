@@ -118,3 +118,42 @@ const coletarDivergencias = () => {
     })
     return divergencias
 }
+ const removeElement = (element) =>{
+    element.remove()
+}
+
+const inputBTN = document.getElementById("input-btn")
+let json
+inputBTN.addEventListener("change", (event) => {
+    const archive = event.target.files[0]
+
+    if(!archive) return
+
+    const reader = new FileReader()
+    reader.onload = (e) => {
+        const data = new Uint8Array(e.target.result)
+        const workbook = XLSX.read(data, {type: "array"})
+        const sheet = workbook.Sheets[workbook.SheetNames[0]]
+        json = XLSX.utils.sheet_to_json(sheet, { defval: ""})
+        // console.log(json)
+    }
+    reader.readAsArrayBuffer(archive)
+})
+
+const gerarTabela = document.getElementById("gerar")
+const mainGetDT = document.getElementById("mainGet")
+gerarTabela.addEventListener('click', () =>{
+    if(json){
+        removeElement(mainGetDT)
+        classBody()
+        changeData(json)
+    }else{
+        alert("Importe o arquivo .xlsx")
+    }
+})
+const salvarEstado = (estado) =>{
+    localStorage.setItem("inventarioEstado", JSON.stringify(estado))
+}
+const limparEstado = () =>{
+    localStorage.removeItem("inventarioEstado")
+}
