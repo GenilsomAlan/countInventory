@@ -1,79 +1,69 @@
 const headerTitle = `<header><h1>Inventário</h1></header>`
 const cabecalho = `<div class="cabecalho"><div class="reservado"><p>Reservado</p></div><div class="posicao"><p>Posição</p></div><div class="caixas"><p>Caixas</p></div><div class="pacotes"><p>Pacotes</p></div><div class="macos">
 <p>Maços</p></div><div class="sku"><p>SKU</p></div><div class="descricao"><p>Descrição</p></div><div class="observacao"><p>Observação</p></div><div class="status"><p>Status</p></div><div class="edite"><p>Editar</p></div></div><div class="dados" id="list"></div>`
+const footer = `<div class="buttonsOptions"><!--<button id="save" class="save-btn">Salvar</button>--><button id="showDivergences" class="divergences-btn">Mostrar Divergências</button></div>`
+
 const changeData = (json) =>{
     newElement('header', 'body', headerTitle)
     newElement('main', 'body', cabecalho)
+    newElement('footer', 'body', footer)
+
     const container = document.getElementById("list")
-        const itensUnicos = []
-        const mapa = new Set()
+    let id = 1
 
-        // json.forEach(item => {
-        //     const chave = `${item.SKU}-${item.Endereco}`
+    json.forEach(item => {
 
-        //     if (!mapa.has(chave)) {
-        //         mapa.add(chave)
-        //         itensUnicos.push(item)
-        //     }
-        // });
+        const div = document.createElement("div")
 
-        let id = 1
+        div.id = `line${id}`
+        div.classList.add("linha")
 
-        json.forEach(item => {
+        div.innerHTML = `
+            <div class="reservado">
+                <p>${item.Reservado ?? 0}</p>
+            </div>
 
-            const div = document.createElement("div")
+            <div class="posicao">
+                <p>${item["Endereços"] ?? "-"}</p>
+            </div>
 
-            div.id = `line${id}`
-            div.classList.add("linha")
+            <div class="caixas" data-original="${item.Caixas ?? 0}" id="caixas${id}">
+                ${item.Caixas ?? 0}
+            </div>
 
-            div.innerHTML = `
-                <div class="reservado">
-                    <p>${item.Reservado ?? 0}</p>
-                </div>
+            <div class="pacotes" data-original="${item.Pacotes}" id="pacotes${id}">
+                ${item.Pacotes}
+            </div>
 
-                <div class="posicao">
-                    <p>${item["Endereços"] ?? "-"}</p>
-                </div>
+            <div class="macos" data-original="${item["Maços"]}" id="macos${id}">
+                ${item["Maços"]}
+            </div>
 
-                <div class="caixas" data-original="${item.Caixas ?? 0}" id="caixas${id}">
-                    ${item.Caixas ?? 0}
-                </div>
+            <div class="sku" id="sku${id}">
+                ${item.Item ?? "-"}
+            </div>
 
-                <div class="pacotes" data-original="${item.Pacotes}" id="pacotes${id}">
-                    ${item.Pacotes}
-                </div>
+            <div class="descricao">
+                <p>${item["Descrição"] ?? "-"}</p>
+            </div>
 
-                <div class="macos" data-original="${item["Maços"]}" id="macos${id}">
-                    ${item["Maços"]}
-                </div>
+            <div class="observacao">
+                <p>${item["Observação"]}</p>
+            </div>
 
-                <div class="sku">
-                    <p>${item.Item ?? "-"}</p>
-                </div>
+            <div class="status">
+                <button class="status-btn" id="item${id}" data-editing="false">*</button>
+            </div>
 
-                <div class="descricao">
-                    <p>${item["Descrição"] ?? "-"}</p>
-                </div>
-
-                <div class="observacao">
-                    <p>${item["Observação"]}</p>
-                </div>
-
-                <div class="status">
-                    <button class="status-btn" id="item${id}" data-editing="false">*</button>
-                </div>
-
-                <div class="edite">
-                    <button class="edit-btn" id="itemID${id}" data-editing="false">Editar</button>
-                </div>
-            `
-
-            container.appendChild(div)
-            id++
-        })
-        initializeEffects()
+            <div class="edite">
+                <button class="edit-btn" id="itemID${id}" data-editing="false">Editar</button>
+            </div>
+        `
+        container.appendChild(div)
+        id++
+    })
+    initializeEffects()
 }
-
 
 const newElement = (element, father, content) => {
     const elementFather = document.getElementById(father)
@@ -81,254 +71,3 @@ const newElement = (element, father, content) => {
     newElementCreated.innerHTML = content
     body.appendChild(newElementCreated)
 }
-
-// document.addEventListener("DOMContentLoaded", () => {
-
-//     fetch('betha.json')
-//         .then(response => response.json())
-//         .then(data => {
-
-//             const container = document.getElementById("list")
-
-//             const itensUnicos = []
-//             const mapa = new Set()
-
-//             data.forEach(item => {
-//                 const chave = `${item.SKU}-${item.Endereco}`
-
-//                 if (!mapa.has(chave)) {
-//                     mapa.add(chave)
-//                     itensUnicos.push(item)
-//                 }
-//             });
-
-//             let id = 1
-
-//             itensUnicos.forEach(item => {
-
-//                 const div = document.createElement("div")
-
-//                 div.id = `line${id}`
-//                 div.classList.add("linha")
-
-//                 div.innerHTML = `
-//                     <div class="reservado">
-//                         <p>${item["Resv.Normal"] ?? 0}</p>
-//                     </div>
-
-//                     <div class="posicao">
-//                         <p>${item.Endereco ?? "-"}</p>
-//                     </div>
-
-//                     <div class="caixas" data-original="${item["Dispon.Exped."] ?? 0}" id="caixas${id}">
-//                         ${item["Dispon.Exped."] ?? 0}
-//                     </div>
-
-//                     <div class="pacotes" data-original="${0}" id="pacotes${id}">
-//                         ${0}
-//                     </div>
-
-//                     <div class="macos" data-original="${0}" id="macos${id}">
-//                         ${0}
-//                     </div>
-
-//                     <div class="sku">
-//                         <p>${item.SKU ?? "-"}</p>
-//                     </div>
-
-//                     <div class="descricao">
-//                         <p>${item.Descricao ?? "-"}</p>
-//                     </div>
-
-//                     <div class="observacao">
-//                         <p>OK</p>
-//                     </div>
-
-//                     <div class="status">
-//                         <button class="status-btn" id="item${id}" data-editing="false">*</button>
-//                     </div>
-
-//                     <div class="edite">
-//                         <button class="edit-btn" id="itemID${id}" data-editing="false">Editar</button>
-//                     </div>
-//                 `
-
-//                 container.appendChild(div)
-//                 id++
-//             })
-//             initializeEffects()
-//         })
-//         .catch(error => console.error("Erro ao carregar JSON:", error))
-
-// })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// fetch('betha.json')
-// .then(response => response.json())
-// .then(data => {
-//     let id = 1
-//     const container = document.getElementById("list")
-//     //console.log(data)
-//     //console.log(data[0])
-//     data.forEach(item => {
-//         const div = document.createElement("div")
-//         div.innerHTML = `
-//             <div class="reservado">
-//                 <p>${item["Resv.Normal"]}</p>
-//             </div>
-//             <div class="posicao">
-//                 <p>${item.Endereco}</p>
-//             </div>
-//             <div class="caixas" id="caixas${id}">
-//                 <p>${item["Dispon.Exped."]}</p>
-//             </div>
-//             <div class="pacotes" id="pacotes${id}">
-//                 <p>${0}</p>
-//             </div>
-//             <div class="macos" id="macos${id}">
-//                 <p>${0}</p>
-//             </div>
-//             <div class="sku">
-//                 <p>${item.SKU}</p>
-//             </div>
-//             <div class="descricao">
-//                 <p>${item.Descricao}</p>
-//             </div>
-//             <div class="observacao">
-//                 <p>${"OK"}</p>
-//             </div>
-//             <div class="status">
-//                 <button class="status-btn" id="item${id}" value=0>*</button>
-//             </div>
-//             <div class="edite">
-//                 <button class="edit-btn" id="itemID${id}" value=false>Editar</button>
-//             </div>
-//         `
-//         div.id = `line${id}`
-//         id = id + 1
-//         container.appendChild(div)        
-//     });
-// })
-// .catch(error => console.error("Erro: ", error));

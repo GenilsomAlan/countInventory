@@ -10,6 +10,7 @@ initializeEffects = () =>{
                 const pacotes = document.getElementById(`pacotes${id}`)
                 const macos = document.getElementById(`macos${id}`)
                 const line = document.getElementById(`line${id}`)
+                const sku = document.getElementById(`sku${id}`)
                 const divergencesBtn = document.getElementsByClassName("divergences-btn")[0]
                 
                 divergencesBtn.disabled = true
@@ -26,8 +27,6 @@ initializeEffects = () =>{
                         if(buttonStatus.classList.contains("ativo")){
                                 buttonStatus.innerText = "OK"
                                 buttonStatus.dataset.editing = "true"
-
-                                
                         }else{
                                 buttonStatus.innerText = "*"
                                 buttonStatus.dataset.editing = "false"
@@ -52,6 +51,7 @@ initializeEffects = () =>{
                                 caixas.contentEditable = false
                                 pacotes.contentEditable = false
                                 macos.contentEditable = false
+                                sku.contentEditable = false
 
                                 buttonEdit.innerText = "Editar"
                                 buttonEdit.dataset.editing = "false"
@@ -61,6 +61,7 @@ initializeEffects = () =>{
                                 caixas.contentEditable = true
                                 pacotes.contentEditable = true
                                 macos.contentEditable = true
+                                sku.contentEditable = true
 
                                 buttonEdit.innerText = "Salvar"
                                 buttonEdit.dataset.editing = "true"
