@@ -71,3 +71,10 @@ initializeEffects = () =>{
                 })
         })
 }
+const classBody = () =>{
+    const bodyClass = document.querySelector('body')
+    if(bodyClass){
+        bodyClass.classList.remove("body")
+        bodyClass.classList.toggle("bodyTable")
+    }
+}

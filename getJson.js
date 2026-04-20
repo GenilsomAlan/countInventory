@@ -5,12 +5,6 @@ const footer = `<div class="buttonsOptions"><!--<button id="save" class="save-bt
 
 
 const changeData = (json) =>{
-    const bodyClass = document.querySelector('body')
-    if(bodyClass){
-        bodyClass.classList.remove("body")
-        bodyClass.classList.toggle("bodyTable")
-    }
-
     newElement('header', 'body', headerTitle)
     newElement('main', 'body', cabecalho)
     newElement('footer', 'body', footer)
