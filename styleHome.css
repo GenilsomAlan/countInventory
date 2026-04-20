@@ -5,12 +5,11 @@
 }
 body{
     width: 100%;
-    background-image: url("./img/TranscodedWallpaper.jfif");
-    background-size: 100%;
-    background-repeat: no-repeat, repeat;
+    /* background-image: url("./img/TranscodedWallpaper.jfif"); */
 }
-main{
-    width: 50%;
+
+#mainGet{
+    width: 100%;
     min-height: 990px;
     display: flex;
     flex-wrap: wrap;

@@ -1,82 +1,166 @@
-document.addEventListener("DOMContentLoaded", () => {
+const headerTitle = `<header><h1>Inventário</h1></header>`
+const cabecalho = `<div class="cabecalho"><div class="reservado"><p>Reservado</p></div><div class="posicao"><p>Posição</p></div><div class="caixas"><p>Caixas</p></div><div class="pacotes"><p>Pacotes</p></div><div class="macos">
+<p>Maços</p></div><div class="sku"><p>SKU</p></div><div class="descricao"><p>Descrição</p></div><div class="observacao"><p>Observação</p></div><div class="status"><p>Status</p></div><div class="edite"><p>Editar</p></div></div><div class="dados" id="list"></div>`
+const changeData = (json) =>{
+    newElement('header', 'body', headerTitle)
+    newElement('main', 'body', cabecalho)
+    const container = document.getElementById("list")
+        const itensUnicos = []
+        const mapa = new Set()
 
-    fetch('betha.json')
-        .then(response => response.json())
-        .then(data => {
+        // json.forEach(item => {
+        //     const chave = `${item.SKU}-${item.Endereco}`
 
-            const container = document.getElementById("list")
+        //     if (!mapa.has(chave)) {
+        //         mapa.add(chave)
+        //         itensUnicos.push(item)
+        //     }
+        // });
 
-            const itensUnicos = []
-            const mapa = new Set()
+        let id = 1
 
-            data.forEach(item => {
-                const chave = `${item.SKU}-${item.Endereco}`
+        json.forEach(item => {
 
-                if (!mapa.has(chave)) {
-                    mapa.add(chave)
-                    itensUnicos.push(item)
-                }
-            });
+            const div = document.createElement("div")
 
-            let id = 1
+            div.id = `line${id}`
+            div.classList.add("linha")
 
-            itensUnicos.forEach(item => {
+            div.innerHTML = `
+                <div class="reservado">
+                    <p>${item.Reservado ?? 0}</p>
+                </div>
 
-                const div = document.createElement("div")
+                <div class="posicao">
+                    <p>${item["Endereços"] ?? "-"}</p>
+                </div>
 
-                div.id = `line${id}`
-                div.classList.add("linha")
+                <div class="caixas" data-original="${item.Caixas ?? 0}" id="caixas${id}">
+                    ${item.Caixas ?? 0}
+                </div>
 
-                div.innerHTML = `
-                    <div class="reservado">
-                        <p>${item["Resv.Normal"] ?? 0}</p>
-                    </div>
+                <div class="pacotes" data-original="${item.Pacotes}" id="pacotes${id}">
+                    ${item.Pacotes}
+                </div>
 
-                    <div class="posicao">
-                        <p>${item.Endereco ?? "-"}</p>
-                    </div>
+                <div class="macos" data-original="${item["Maços"]}" id="macos${id}">
+                    ${item["Maços"]}
+                </div>
 
-                    <div class="caixas" data-original="${item["Dispon.Exped."] ?? 0}" id="caixas${id}">
-                        ${item["Dispon.Exped."] ?? 0}
-                    </div>
+                <div class="sku">
+                    <p>${item.Item ?? "-"}</p>
+                </div>
 
-                    <div class="pacotes" data-original="${0}" id="pacotes${id}">
-                        ${0}
-                    </div>
+                <div class="descricao">
+                    <p>${item["Descrição"] ?? "-"}</p>
+                </div>
 
-                    <div class="macos" data-original="${0}" id="macos${id}">
-                        ${0}
-                    </div>
+                <div class="observacao">
+                    <p>${item["Observação"]}</p>
+                </div>
 
-                    <div class="sku">
-                        <p>${item.SKU ?? "-"}</p>
-                    </div>
+                <div class="status">
+                    <button class="status-btn" id="item${id}" data-editing="false">*</button>
+                </div>
 
-                    <div class="descricao">
-                        <p>${item.Descricao ?? "-"}</p>
-                    </div>
+                <div class="edite">
+                    <button class="edit-btn" id="itemID${id}" data-editing="false">Editar</button>
+                </div>
+            `
 
-                    <div class="observacao">
-                        <p>OK</p>
-                    </div>
-
-                    <div class="status">
-                        <button class="status-btn" id="item${id}" data-editing="false">*</button>
-                    </div>
-
-                    <div class="edite">
-                        <button class="edit-btn" id="itemID${id}" data-editing="false">Editar</button>
-                    </div>
-                `
-
-                container.appendChild(div)
-                id++
-            })
-            initializeEffects()
+            container.appendChild(div)
+            id++
         })
-        .catch(error => console.error("Erro ao carregar JSON:", error))
+        initializeEffects()
+}
 
-})
+
+const newElement = (element, father, content) => {
+    const elementFather = document.getElementById(father)
+    const newElementCreated = document.createElement(element)
+    newElementCreated.innerHTML = content
+    body.appendChild(newElementCreated)
+}
+
+// document.addEventListener("DOMContentLoaded", () => {
+
+//     fetch('betha.json')
+//         .then(response => response.json())
+//         .then(data => {
+
+//             const container = document.getElementById("list")
+
+//             const itensUnicos = []
+//             const mapa = new Set()
+
+//             data.forEach(item => {
+//                 const chave = `${item.SKU}-${item.Endereco}`
+
+//                 if (!mapa.has(chave)) {
+//                     mapa.add(chave)
+//                     itensUnicos.push(item)
+//                 }
+//             });
+
+//             let id = 1
+
+//             itensUnicos.forEach(item => {
+
+//                 const div = document.createElement("div")
+
+//                 div.id = `line${id}`
+//                 div.classList.add("linha")
+
+//                 div.innerHTML = `
+//                     <div class="reservado">
+//                         <p>${item["Resv.Normal"] ?? 0}</p>
+//                     </div>
+
+//                     <div class="posicao">
+//                         <p>${item.Endereco ?? "-"}</p>
+//                     </div>
+
+//                     <div class="caixas" data-original="${item["Dispon.Exped."] ?? 0}" id="caixas${id}">
+//                         ${item["Dispon.Exped."] ?? 0}
+//                     </div>
+
+//                     <div class="pacotes" data-original="${0}" id="pacotes${id}">
+//                         ${0}
+//                     </div>
+
+//                     <div class="macos" data-original="${0}" id="macos${id}">
+//                         ${0}
+//                     </div>
+
+//                     <div class="sku">
+//                         <p>${item.SKU ?? "-"}</p>
+//                     </div>
+
+//                     <div class="descricao">
+//                         <p>${item.Descricao ?? "-"}</p>
+//                     </div>
+
+//                     <div class="observacao">
+//                         <p>OK</p>
+//                     </div>
+
+//                     <div class="status">
+//                         <button class="status-btn" id="item${id}" data-editing="false">*</button>
+//                     </div>
+
+//                     <div class="edite">
+//                         <button class="edit-btn" id="itemID${id}" data-editing="false">Editar</button>
+//                     </div>
+//                 `
+
+//                 container.appendChild(div)
+//                 id++
+//             })
+//             initializeEffects()
+//         })
+//         .catch(error => console.error("Erro ao carregar JSON:", error))
+
+// })
 
 
 

@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="styleHome.css">
-</head>
-<body>
-    <main>
+     <title>Inventário</title>
 
+    <link rel="stylesheet" href="styleHome.css">
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- <script src="effects.js" defer></script>
+    <script src="script.js" defer></script> -->
+</head>
+<body id="body">
+    <main id="mainGet">
         <div class="card">
             <div class="title">
                 <h1>Importe relatório de Contagem</h1>
@@ -21,24 +26,45 @@
                 <button id="gerar">Gerar Relatório</button>    
             </div>
         </div>
-
     </main>
-    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script defer>
-        const handleFile = (event) =>{
-            const file = event.target.files[0]
-            const reader = new FileReader()
+        const removeElement = (element) =>{
+            element.remove()
+        }
 
-            reader.onload = (e) =>{
+        const inputBTN = document.getElementById("input-btn")
+        let json
+        inputBTN.addEventListener("change", (event) => {
+            const archive = event.target.files[0]
+
+            if(!archive) return
+
+            const reader = new FileReader()
+            reader.onload = (e) => {
                 const data = new Uint8Array(e.target.result)
                 const workbook = XLSX.read(data, {type: "array"})
-                const firstSheetName = workbook.SheetNames[0]
-                const worksheet = workbook.Sheets[firstSheetName]
-                const jsonData = XLSX.utils.sheet_to_json(worksheet, {header: 1})
-                console.log(jsonData)   
+                const sheet = workbook.Sheets[workbook.SheetNames[0]]
+                console.log(workbook.SheetNames)
+                json = XLSX.utils.sheet_to_json(sheet, { defVal: ""})
+                console.log(json)
             }
-            reader.readAsArrayBuffer(file)
-        }           
+            reader.readAsArrayBuffer(archive)
+        })
+
+        const gerarTabela = document.getElementById("gerar")
+        const mainGetDT = document.getElementById("mainGet")
+        gerarTabela.addEventListener('click', () =>{
+            if(json){
+                // alert("Json carregado! Gerando Tabela!")
+                removeElement(mainGetDT)
+                changeData(json)
+            }else{
+                // alert("Importe o arquivo .xlsx")
+            }
+        })
     </script>
+    <script src="getJson.js" defer></script>
+
 </body>
 </html>

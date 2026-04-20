@@ -69,7 +69,6 @@ const coletarDivergencias = () => {
     })
     return divergencias
 }
-
 const htmlDivergencias = () => {
     return `    
      <header>
