@@ -191,7 +191,7 @@ h1{
 .ativo{
     background-color: rgb(51, 177, 51);
 }
-.divergences-btn{
+.divergences-btn, .save-btn{
     width: 120px;
     height: 40px;
     border: none;
@@ -201,7 +201,7 @@ h1{
     cursor: pointer;
     margin-right: 10px;
 }
-.divergences-btn-ativo{
+.divergences-btn-ativo, .save-btn-ativo{
     width: 120px;
     height: 40px;
     border: none;
@@ -217,4 +217,4 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
-}   
+}

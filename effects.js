@@ -12,9 +12,11 @@ initializeEffects = () =>{
                 const line = document.getElementById(`line${id}`)
                 const sku = document.getElementById(`sku${id}`)
                 const divergencesBtn = document.getElementsByClassName("divergences-btn")[0]
+                const save_btn = document.getElementById("save")
                 
-                if(divergencesBtn){
+                if(divergencesBtn && save_btn){
                         divergencesBtn.disabled = true
+                        save_btn.disabled = true
                 }
 
                 buttonStatus.addEventListener("click", () =>{
@@ -36,7 +38,9 @@ initializeEffects = () =>{
 
                         if(verificarEncerramentoDaContagem()){
                                 divergencesBtn.classList.add("divergences-btn-ativo")
+                                save_btn.classList.add("save-btn-ativo")
                                 divergencesBtn.disabled = false
+                                save_btn.disabled = false
                                 return
                         }
                         divergencesBtn.classList.remove("divergences-btn-ativo")
