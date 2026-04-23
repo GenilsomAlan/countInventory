@@ -23,7 +23,7 @@ const changeData = (json) =>{
     newElement('main', 'body', cabecalho)
     newElement('footer', 'body', footer)
 
-    const btnDivergences = document.getElementById("showDivergences")
+    const btnDivergences = document.getElementById("showDivergences")//
     btnDivergences.addEventListener("click", () =>{
         const divergencias = coletarDivergencias()
         const dadosContagem = getDadosContagem()
@@ -78,6 +78,12 @@ const verificarEncerramentoDaContagem = () => {
     return [...linhas].every(linha =>{
         const btn = linha.querySelector('.status-btn')
         return btn.dataset.editing === "true"
+    })
+}
+const saveData = () =>{
+    const saveBtn = document.getElementById('save')
+    saveBtn.addEventListener('click', () => {
+        printBtn('list')
     })
 }
 
@@ -147,6 +153,7 @@ gerarTabela.addEventListener('click', () =>{
         removeElement(mainGetDT)
         classBody()
         changeData(json)
+        saveData()
     }else{
         alert("Importe o arquivo .xlsx")
     }
@@ -157,6 +164,52 @@ const salvarEstado = (estado) =>{
 const limparEstado = () =>{
     localStorage.removeItem("inventarioEstado")
 }
-const print = () =>{
-    const contentPrint = document.getElementById
+
+const printBtn = (id) =>{
+    // win.document.write(`<html><head><title>Relatório de contagem de Estoque -------- ${day()}</tilte>`)
+    // win.document.write(style)
+    // win.document.write(`</head><body>`)
+    // win.document.write(contentPrint)
+    // win.document.write('</body><foote><p>Hora início:______ Hora fim:_______ Ass Responsavel:___________________________ Ass Conferente:___________________________</p></footer></html>')
+    // win.document.close()
+    // win.print()
+    const conteudo = document.getElementById(id).innerHTML
+
+    const styles = Array.from(
+        document.querySelectorAll("style, link[rel='stylesheet']")
+    ).map(el => el.outerHTML).join("")
+
+    const win = window.open('', '', 'height=700,width=900')
+
+    win.document.write(`
+        <html>
+            <head>
+                <title>Relatório de Inventário</title>
+                ${styles}
+                <style>
+                    body { padding: 20px; }
+                </style>
+            </head>
+            <body>
+                ${cabecalho}
+                ${conteudo}
+                <foote><p>Hora início:______ Hora fim:_______ Ass Responsavel:____________ Ass Conferente:____________ </p></footer>
+            </body>
+        </html>
+    `)
+
+    win.document.close()
+    win.focus()
+
+    setTimeout(() => {
+        win.print()
+        win.close()
+    }, 500)
+}
+const day = () =>{
+    const data = new Date()
+    const dia = String(data.getDate()).padStart(2, '0')
+    const mes = String(data.getMonth() + 1).padStart(2, '0')
+    const ano = String(data.getFullYear())
+    return  `${dia}/${mes}/${ano}`
 }
