@@ -221,6 +221,7 @@ footer{
 #cabecalhoPrint{
     width: 100%;
     display: flex;
-    justify-content: ce;
+    justify-content: center;
     background-color: white;
+    color: black;
 }
