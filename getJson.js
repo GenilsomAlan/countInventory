@@ -1,7 +1,7 @@
 const headerTitle = `<header><h1>Inventário</h1></header>`
 const cabecalho = `<div class="cabecalho"><div class="reservado"><p>Reservado</p></div><div class="posicao"><p>Posição</p></div><div class="caixas"><p>Caixas</p></div><div class="pacotes"><p>Pacotes</p></div><div class="macos">
     <p>Maços</p></div><div class="sku"><p>SKU</p></div><div class="descricao"><p>Descrição</p></div><div class="observacao"><p>Observação</p></div><div class="status"><p>Status</p></div><div class="edite"><p>Editar</p></div></div><div class="dados" id="list"></div>`
-const footer = `<div class="buttonsOptions"><button id="save" class="save-btn">Salvar</button><button id="showDivergences" class="divergences-btn">Mostrar Divergências</button></div>`
+const footer = `<div class="buttonsOptions"><button id="save" class="save-btn" type="button">Salvar</button><button id="showDivergences" class="divergences-btn">Mostrar Divergências</button></div>`
 const line = (item, id) =>{ 
     return `<div class="reservado"><p>${item.Reservado ?? 0}</p></div><div class="posicao"><p>${item["Endereços"] ?? "-"}</p></div><div class="caixas" data-original="${item.Caixas ?? 0}" id="caixas${id}">${item.Caixas ?? 0}</div>
     <div class="pacotes" data-original="${item.Pacotes ?? 0}" id="pacotes${id}">${item.Pacotes ?? 0}</div><div class="macos" data-original="${item["Maços"] ?? 0}" id="macos${id}">${item["Maços"] ?? 0}</div><div class="sku" id="sku${id}">${item.Item ?? "-"}</div>
@@ -83,6 +83,7 @@ const verificarEncerramentoDaContagem = () => {
 const saveData = () =>{
     const saveBtn = document.getElementById('save')
     saveBtn.addEventListener('click', (e) => {
+        e.preventDefault()
         printBtn('list')
     })
 }

@@ -1,4 +1,4 @@
-*{
+/* *{
     margin: 0;
     padding: 0;
     font-family: 'arial', sans-serif;
@@ -224,4 +224,345 @@ footer{
     justify-content: center;
     background-color: white;
     color: black;
+} */
+/* =========================
+   RESET E BASE
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+/* =========================
+   HEADER
+========================= */
+header {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    background-color: orangered;
+    color: antiquewhite;
+    align-items: center;
+}
+
+h1 {
+    font-family: 'Courier New', Courier, monospace;
+    padding-left: 20px;
+}
+
+/* =========================
+   MAIN
+========================= */
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* =========================
+   TELA DE IMPORTAÇÃO
+========================= */
+#mainGet {
+    width: 100%;
+    height: calc(100vh - 0px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('./img/wallpaper.png');
+    background-size: cover;
+}
+
+.card {
+    width: 400px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.title h1 {
+    font-size: 22px;
+    text-align: center;
+    font-family: 'Gill Sans', Calibri, sans-serif;
+    color: #333;
+}
+
+.imports {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.imports label {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#input-btn {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+#input-btn:hover {
+    border-color: orangered;
+}
+
+.buttonRelatorio {
+    display: flex;
+    justify-content: center;
+}
+
+#gerar {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background-color: orangered;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#gerar:hover {
+    background-color: rgb(200, 50, 0);
+}
+
+/* =========================
+   CABEÇALHO TABELA
+========================= */
+.cabecalho {
+    width: 90%;
+    display: flex;
+}
+
+.cabecalho > div {
+    font-family: 'Gill Sans', Calibri, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* =========================
+   DADOS
+========================= */
+.dados {
+    width: 90%;
+}
+
+/* =========================
+   LINHAS
+========================= */
+.linha {
+    width: 100%;
+    display: flex;
+    font-size: 14px;
+    font-family: 'Gill Sans', Calibri, sans-serif;
+}
+
+.linha-ok {
+    background-color: rgb(79, 253, 79);
+}
+
+.linha-editing {
+    background-color: rgb(197, 186, 186);
+}
+
+/* =========================
+   COLUNAS
+========================= */
+.reservado,
+.posicao,
+.caixas,
+.pacotes,
+.macos,
+.sku,
+.descricao,
+.observacao,
+.status,
+.edite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+/* =========================
+   TAMANHOS DESKTOP
+========================= */
+.reservado { width: 10%; }
+.posicao { width: 10%; }
+.caixas { width: 5%; }
+.pacotes { width: 5%; }
+.macos { width: 5%; }
+.sku { width: 7%; }
+.descricao { width: 30%; }
+.observacao { width: 8%; }
+.status { width: 10%; }
+.edite { width: 10%; }
+
+/* =========================
+   BOTÕES
+========================= */
+.status-btn,
+.edit-btn {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: rgb(255, 69, 0);
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.ativo {
+    background-color: rgb(51, 177, 51);
+}
+
+/* =========================
+   FOOTER
+========================= */
+footer {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.buttonsOptions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.buttonsOptions button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1024px) {
+
+    .cabecalho,
+    .dados {
+        width: 100%;
+    }
+
+    .linha {
+        font-size: 12px;
+    }
+
+    .descricao {
+        width: 25%;
+    }
+
+    .card {
+        width: 60%;
+    }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .cabecalho {
+        display: none;
+    }
+
+    .linha {
+        flex-wrap: wrap;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+        background: white;
+    }
+
+    .linha > div {
+        width: 50%;
+        border: none;
+        border-bottom: 1px solid #eee;
+        justify-content: space-between;
+        padding: 8px;
+    }
+
+    .linha > div::before {
+        content: attr(class);
+        font-weight: bold;
+        text-transform: capitalize;
+    }
+
+    .status,
+    .edite {
+        width: 100%;
+    }
+
+    .status button,
+    .edite button {
+        width: 100%;
+    }
+
+    #mainGet {
+        padding: 20px;
+        align-items: flex-start;
+    }
+
+    .card {
+        width: 100%;
+        margin-top: 40px;
+    }
+
+    .title h1 {
+        font-size: 18px;
+    }
+
+    #gerar {
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+@media (max-width: 480px) {
+
+    h1 {
+        font-size: 18px;
+    }
+
+    .linha > div {
+        width: 100%;
+    }
+
+    .buttonsOptions {
+        flex-direction: column;
+    }
+
+    .buttonsOptions button {
+        width: 100%;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .title h1 {
+        font-size: 16px;
+    }
+
+    #input-btn {
+        font-size: 12px;
+    }
 }
