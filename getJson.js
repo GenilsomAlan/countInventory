@@ -82,7 +82,7 @@ const verificarEncerramentoDaContagem = () => {
 }
 const saveData = () =>{
     const saveBtn = document.getElementById('save')
-    saveBtn.addEventListener('click', () => {
+    saveBtn.addEventListener('click', (e) => {
         printBtn('list')
     })
 }
@@ -188,12 +188,14 @@ const printBtn = (id) =>{
                 ${styles}
                 <style>
                     body { padding: 20px; }
+                    footer { margin-top: 20px}
                 </style>
             </head>
             <body>
+                <header id="cabecalhoPrint"><p>Relatório de contagem de Estoque -------- ${day()}</p></header>
                 ${cabecalho}
                 ${conteudo}
-                <foote><p>Hora início:______ Hora fim:_______ Ass Responsavel:____________ Ass Conferente:____________ </p></footer>
+                <foote><p>Hora início:_____ Hora fim:______ Ass Responsavel:______________ Ass Conferente:______________ </p></footer>
             </body>
         </html>
     `)
