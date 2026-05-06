@@ -24,11 +24,10 @@ const changeData = (json) =>{
 
     setUpDivergencesPage()
 
-    const container = document.getElementById("list")
-    let id = 1
+    const container = document.getElementById("list")   
 
-    json.forEach(item => {
-
+    json.forEach((item, index) => {
+        const id = index + 1
         const div = document.createElement("div")
 
         div.id = `line${id}`
@@ -37,7 +36,6 @@ const changeData = (json) =>{
         div.innerHTML = line(item, id)
 
         container.appendChild(div)
-        id++
     })
 }
 const setUpDivergencesPage = () =>{
@@ -48,7 +46,9 @@ const setUpDivergencesPage = () =>{
     btnDivergences.addEventListener("click", () =>{
         const divergencias = coletarDivergencias()
 
-        document.body.innerHTML = htmlDivergencias()
+        // document.body.innerHTML = htmlDivergencias()
+        const main = document.querySelector("main")
+        main.innerHTML = htmlDivergencias()
 
         const container = document.getElementById("resultadoDivergencias")
 
@@ -107,6 +107,7 @@ const coletarDivergencias = () => {
         const atualPacotes = Number(pacotes.innerText) || 0
         const originalMacos = Number(macos.dataset.original) || 0
         const atualMacos = Number(macos.innerText) || 0
+        
 
         if(originalCaixas !== atualCaixas || originalPacotes !== atualPacotes || originalMacos !== atualMacos){
             divergencias.push({
@@ -349,8 +350,6 @@ const iniciarComEstadoSalvo = () => {
     saveData()
 }
 const resetPage = () =>{
-    // if(confirm("Tem certeza que deseja importar um novo relatório? O estado atual será perdido.")){
         limparEstado()
         window.location.reload()
-    // }
 }

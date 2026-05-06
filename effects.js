@@ -1,23 +1,21 @@
 initializeEffects = () =>{
-        const dados = document.getElementById("list")
+        const dados = document.getElementById("list") || document.getElementsById("resultadoDivergencias")
+
+        if(!dados) return
+
         const arrayDados = [...dados.children]
         arrayDados.forEach((linha, index) =>{
                 const id = index + 1
 
-                const buttonStatus = document.getElementById(`item${id}`)
-                const buttonEdit = document.getElementById(`itemID${id}`)
-                const caixas = document.getElementById(`caixas${id}`)
-                const pacotes = document.getElementById(`pacotes${id}`)
-                const macos = document.getElementById(`macos${id}`)
-                const line = document.getElementById(`line${id}`)
-                const sku = document.getElementById(`sku${id}`)
+                const buttonStatus = linha.querySelector(".status-btn")
+                const buttonEdit = linha.querySelector(".edit-btn")
+                const caixas = linha.querySelector(".caixas")
+                const pacotes = linha.querySelector(".pacotes")
+                const macos = linha.querySelector(".macos")
+                const line = linha
+                const sku = linha.querySelector(".sku")
                 const divergencesBtn = document.getElementsByClassName("divergences-btn")[0]
                 const save_btn = document.getElementById("save")
-                
-                if(divergencesBtn && save_btn){
-                        divergencesBtn.disabled = true
-                        save_btn.disabled = true
-                }
 
                 buttonStatus.addEventListener("click", () =>{
                         if(buttonEdit.dataset.editing === "true"){
@@ -48,6 +46,12 @@ initializeEffects = () =>{
                         divergencesBtn.classList.remove("divergences-btn-ativo")
                         salvarEstado()
                 })
+
+                if(divergencesBtn && save_btn){
+                        divergencesBtn.disabled = true
+                        save_btn.disabled = true
+                }
+
                 buttonEdit.addEventListener("click", () =>{
                         if(buttonStatus.dataset.editing === "true"){
                                 alert("Desative o status antes de editar")
