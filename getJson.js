@@ -67,7 +67,9 @@ const setUpDivergencesPage = () =>{
                 container.appendChild(div)
         })
 
-        initializeEffects()
+        setTimeout(() => {
+            initializeEffects()
+        }, 0)
 
     })
 }
@@ -161,7 +163,7 @@ gerarTabela.addEventListener('click', () =>{
 const salvarEstado = () =>{
     const estado = capturaEstadoAtual()
 
-    console.log("salvando: ", estado)
+    // console.log("salvando: ", estado)
 
     localStorage.setItem("inventarioEstado", JSON.stringify(estado))
 }
@@ -169,7 +171,14 @@ const limparEstado = () =>{
     localStorage.removeItem("inventarioEstado")
 }
 const printBtn = (id) =>{
-    const conteudo = document.getElementById(id).innerHTML
+    const element = document.getElementById(id) || document.getElementById("resultadoDivergencias")
+
+    if(!element){
+        console.error("Conteúdo para impressão não encontrado")
+        return
+    }
+
+    const conteudo = element.innerHTML
 
     const styles = Array.from(
         document.querySelectorAll("style, link[rel='stylesheet']")
@@ -273,14 +282,14 @@ const restaurarEstado = () =>{
             macos.contentEditable = true
             sku.contentEditable = true
 
-            editBtn.innerText = "Salvar"
+            editBtn.innerHTML = "Salvar"
             editBtn.dataset.editing = "true"
         }
 
         if(item.status === "true"){
             btn.classList.add("ativo")
             line.classList.add("linha-ok")
-            btn.innerText = "OK"
+            btn.innerHTML = "&#10003;"
             btn.dataset.editing = "true"
         }
     })
@@ -328,7 +337,7 @@ const iniciarComEstadoSalvo = () => {
                 <button class="status-btn ${item.status === "true" ? "ativo" : ""}" 
                         id="item${item.id}" 
                         data-editing="${item.status}">
-                    ${item.status === "true" ? "OK" : "*"}
+                    ${item.status === "true" ? "&#10003;" : "*"}
                 </button>
             </div>
             <div class="edite">

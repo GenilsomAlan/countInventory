@@ -1,7 +1,7 @@
 initializeEffects = () =>{
-        const dados = document.getElementById("list") || document.getElementsById("resultadoDivergencias")
+        const dados = document.getElementById("list") || document.getElementById("resultadoDivergencias")
 
-        if(!dados) return
+        if(!dados || !dados.children.length) return
 
         const arrayDados = [...dados.children]
         arrayDados.forEach((linha, index) =>{
@@ -17,6 +17,11 @@ initializeEffects = () =>{
                 const divergencesBtn = document.getElementsByClassName("divergences-btn")[0]
                 const save_btn = document.getElementById("save")
 
+                if(divergencesBtn && save_btn){
+                        divergencesBtn.disabled = true
+                        save_btn.disabled = true
+                }
+
                 buttonStatus.addEventListener("click", () =>{
                         if(buttonEdit.dataset.editing === "true"){
                                 alert("Salve as alterações antes de mudar o status")
@@ -27,16 +32,16 @@ initializeEffects = () =>{
                         line.classList.toggle("linha-ok")
 
                         if(buttonStatus.classList.contains("ativo")){
-                                buttonStatus.innerText = "OK"
+                                buttonStatus.innerHTML = "&#10003;"
                                 buttonStatus.dataset.editing = "true"
                         }else{
-                                buttonStatus.innerText = "*"
+                                buttonStatus.innerHTML = "*"
                                 buttonStatus.dataset.editing = "false"
                         }
 
                         salvarEstado()
 
-                        if(verificarEncerramentoDaContagem()){
+                        if(divergencesBtn && save_btn && verificarEncerramentoDaContagem()){
                                 divergencesBtn.classList.add("divergences-btn-ativo")
                                 save_btn.classList.add("save-btn-ativo")
                                 divergencesBtn.disabled = false
