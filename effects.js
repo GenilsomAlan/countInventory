@@ -36,6 +36,8 @@ initializeEffects = () =>{
                                 buttonStatus.dataset.editing = "false"
                         }
 
+                        salvarEstado()
+
                         if(verificarEncerramentoDaContagem()){
                                 divergencesBtn.classList.add("divergences-btn-ativo")
                                 save_btn.classList.add("save-btn-ativo")
@@ -44,6 +46,7 @@ initializeEffects = () =>{
                                 return
                         }
                         divergencesBtn.classList.remove("divergences-btn-ativo")
+                        salvarEstado()
                 })
                 buttonEdit.addEventListener("click", () =>{
                         if(buttonStatus.dataset.editing === "true"){
@@ -63,6 +66,7 @@ initializeEffects = () =>{
                                 buttonEdit.dataset.editing = "false"
 
                                 line.classList.remove("linha-editing")
+                                salvarEstado()
                         }else{
                                 caixas.contentEditable = true
                                 pacotes.contentEditable = true
@@ -73,7 +77,7 @@ initializeEffects = () =>{
                                 buttonEdit.dataset.editing = "true"
 
                                 line.classList.add("linha-editing")
-                        }
+                                }
                 })
         })
 }

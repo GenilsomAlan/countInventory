@@ -1,7 +1,7 @@
 const headerTitle = `<header><h1>Inventário</h1></header>`
 const cabecalho = `<div class="cabecalho"><div class="reservado"><p>Reservado</p></div><div class="posicao"><p>Posição</p></div><div class="caixas"><p>Caixas</p></div><div class="pacotes"><p>Pacotes</p></div><div class="macos">
     <p>Maços</p></div><div class="sku"><p>SKU</p></div><div class="descricao"><p>Descrição</p></div><div class="observacao"><p>Observação</p></div><div class="status"><p>Status</p></div><div class="edite"><p>Editar</p></div></div><div class="dados" id="list"></div>`
-const footer = `<div class="buttonsOptions"><button id="save" class="save-btn" type="button">Salvar</button><button id="showDivergences" class="divergences-btn">Mostrar Divergências</button></div>`
+const footer = `<div class="buttonsOptions"><button id="save" class="save-btn" type="button">Salvar</button><button id="showDivergences" class="divergences-btn">Mostrar Divergências</button><button id="reset" class="reset-btn" type="button" onclick="resetPage()">Importar novo relatório</button></div>`
 const line = (item, id) =>{ 
     return `<div class="reservado"><p>${item.Reservado ?? 0}</p></div><div class="posicao"><p>${item["Endereços"] ?? "-"}</p></div><div class="caixas" data-original="${item.Caixas ?? 0}" id="caixas${id}">${item.Caixas ?? 0}</div>
     <div class="pacotes" data-original="${item.Pacotes ?? 0}" id="pacotes${id}">${item.Pacotes ?? 0}</div><div class="macos" data-original="${item["Maços"] ?? 0}" id="macos${id}">${item["Maços"] ?? 0}</div><div class="sku" id="sku${id}">${item.Item ?? "-"}</div>
@@ -13,40 +13,16 @@ const htmlDivergencias = () => {
     </div><div class="macos"><p>Maços</p></div><div class="sku"><p>SKU</p></div><div class="descricao"><p>Descrição</p></div><div class="observacao"><p>Observação</p></div><div class="status"><p>Status</p></div><div class="edite"><p>Editar</p></div></div>
     <div class="dados" id="resultadoDivergencias"></div></main>`
 }
-const divsItems = (item) =>{
-    return `<div class="reservado"><p>${item.reservado}</p></div><div class="posicao"><p>${item.posicao}</p></div><div class="caixas">${item.caixas}</div><div class="pacotes">${item.pacotes}</div><div class="macos">${item.macos}</div><div class="sku">
-    <p>${item.sku}</p></div><div class="descricao"><p>${item.descricao}</p></div><div class="observacao"><p>${item.observacao}</p></div><div class="status"><button class="status-btn" data-editing="false">*</button></div><div class="edite"><button class="edit-btn" data-editing="false">Editar</button></div>`
+const divsItems = (item, id) =>{
+    return `<div class="reservado"><p>${item.reservado}</p></div><div class="posicao"><p>${item.posicao}</p></div><div class="caixas" data-original="${item.originalCaixas}">${item.caixas}</div><div class="pacotes" data-original="${item.originalPacotes}">${item.pacotes}</div><div class="macos" data-original="${item.originalMacos}">${item.macos}</div><div class="sku" data-original="${item.originalSku}">
+    <p>${item.sku}</p></div><div class="descricao"><p>${item.descricao}</p></div><div class="observacao"><p>${item.observacao}</p></div><div class="status"><button class="status-btn" id="item${id}" data-editing="false">*</button></div><div class="edite"><button class="edit-btn" id="itemID${id}" data-editing="false">Editar</button></div>`
 }
-
 const changeData = (json) =>{
     newElement('header', 'body', headerTitle)
     newElement('main', 'body', cabecalho)
     newElement('footer', 'body', footer)
 
-    const btnDivergences = document.getElementById("showDivergences")//
-    btnDivergences.addEventListener("click", () =>{
-        const divergencias = coletarDivergencias()
-        const dadosContagem = getDadosContagem()
-
-        document.body.innerHTML = htmlDivergencias()
-
-        const container = document.getElementById("resultadoDivergencias")
-
-        if(divergencias.length === 0){
-            container.innerHTML = "<p>Não foram encontradas divergências</p>"
-            return
-        }
-
-        divergencias.forEach(item =>{
-            const div = document.createElement("div")
-            div.classList.add("linha")
-
-            div.innerHTML = divsItems(item)
-
-                container.appendChild(div)
-
-        })
-    })
+    setUpDivergencesPage()
 
     const container = document.getElementById("list")
     let id = 1
@@ -63,9 +39,38 @@ const changeData = (json) =>{
         container.appendChild(div)
         id++
     })
-    initializeEffects()
 }
+const setUpDivergencesPage = () =>{
+    const btnDivergences = document.getElementById("showDivergences")//
 
+    if(!btnDivergences) return
+
+    btnDivergences.addEventListener("click", () =>{
+        const divergencias = coletarDivergencias()
+
+        document.body.innerHTML = htmlDivergencias()
+
+        const container = document.getElementById("resultadoDivergencias")
+
+        if(divergencias.length === 0){
+            container.innerHTML = "<p>Não foram encontradas divergências</p>"
+            return
+        }
+
+        divergencias.forEach((item, index) => {
+            const id = index + 1
+            const div = document.createElement("div")
+            div.classList.add("linha")
+
+            div.innerHTML = divsItems(item, id)
+
+                container.appendChild(div)
+        })
+
+        initializeEffects()
+
+    })
+}
 const newElement = (element, father, content) => {
     const elementFather = document.querySelector(father)
     const newElementCreated = document.createElement(element)
@@ -87,13 +92,6 @@ const saveData = () =>{
         printBtn('list')
     })
 }
-
-const getDadosContagem = () => {
-    const linhas = document.getElementById("list")
-
-    console.log(linhas)
-}
-
 const coletarDivergencias = () => {
     const linhas = document.querySelectorAll('.linha')
     const divergencias = []
@@ -128,7 +126,6 @@ const coletarDivergencias = () => {
  const removeElement = (element) =>{
     element.remove()
 }
-
 const inputBTN = document.getElementById("input-btn")
 let json
 inputBTN.addEventListener("change", (event) => {
@@ -146,7 +143,6 @@ inputBTN.addEventListener("change", (event) => {
     }
     reader.readAsArrayBuffer(archive)
 })
-
 const gerarTabela = document.getElementById("gerar")
 const mainGetDT = document.getElementById("mainGet")
 gerarTabela.addEventListener('click', () =>{
@@ -154,26 +150,24 @@ gerarTabela.addEventListener('click', () =>{
         removeElement(mainGetDT)
         classBody()
         changeData(json)
+        restaurarEstado()
+        initializeEffects()
         saveData()
     }else{
         alert("Importe o arquivo .xlsx")
     }
 })
-const salvarEstado = (estado) =>{
+const salvarEstado = () =>{
+    const estado = capturaEstadoAtual()
+
+    console.log("salvando: ", estado)
+
     localStorage.setItem("inventarioEstado", JSON.stringify(estado))
 }
 const limparEstado = () =>{
     localStorage.removeItem("inventarioEstado")
 }
-
 const printBtn = (id) =>{
-    // win.document.write(`<html><head><title>Relatório de contagem de Estoque -------- ${day()}</tilte>`)
-    // win.document.write(style)
-    // win.document.write(`</head><body>`)
-    // win.document.write(contentPrint)
-    // win.document.write('</body><foote><p>Hora início:______ Hora fim:_______ Ass Responsavel:___________________________ Ass Conferente:___________________________</p></footer></html>')
-    // win.document.close()
-    // win.print()
     const conteudo = document.getElementById(id).innerHTML
 
     const styles = Array.from(
@@ -215,4 +209,148 @@ const day = () =>{
     const mes = String(data.getMonth() + 1).padStart(2, '0')
     const ano = String(data.getFullYear())
     return  `${dia}/${mes}/${ano}`
+}
+const capturaEstadoAtual = () =>{
+    const linhas = document.querySelectorAll('.linha')
+    const estado = []
+
+    linhas.forEach((linha, index) => {
+        const id = index + 1
+
+        estado.push({
+            id,
+            caixas: document.getElementById(`caixas${id}`).innerHTML,
+            pacotes: document.getElementById(`pacotes${id}`).innerHTML,
+            macos: document.getElementById(`macos${id}`).innerHTML,
+            sku: document.getElementById(`sku${id}`).innerHTML,
+            status: document.getElementById(`item${id}`).dataset.editing,
+            reservado: linha.querySelector('.reservado').innerText,
+            posicao: linha.querySelector('.posicao').innerText,
+            descricao: linha.querySelector('.descricao').innerText,
+            observacao: linha.querySelector('.observacao').innerText,
+            editando: linha.querySelector('.edit-btn').dataset.editing,
+            originalCaixas: linha.querySelector('.caixas').dataset.original,
+            originalPacotes: linha.querySelector('.pacotes').dataset.original,
+            originalMacos: linha.querySelector('.macos').dataset.original,
+            originalSku: linha.querySelector('.sku').dataset.original
+        })
+    })
+    return estado   
+}
+const carregarEstado = () =>{
+    const salvo = localStorage.getItem("inventarioEstado")
+
+    if(!salvo) return
+
+    return JSON.parse(salvo)
+}
+const restaurarEstado = () =>{
+    const estado = carregarEstado()
+    if(!estado) return
+
+    estado.forEach(item =>{
+        const id = item.id
+
+        document.getElementById(`caixas${id}`).innerHTML = item.caixas
+        document.getElementById(`pacotes${id}`).innerHTML = item.pacotes
+        document.getElementById(`macos${id}`).innerHTML = item.macos
+        document.getElementById(`sku${id}`).innerHTML = item.sku
+        document.getElementById(`reservado${id}`).innerHTML = item.reservado
+        document.getElementById(`posicao${id}`).innerHTML = item.posicao
+        document.getElementById(`descricao${id}`).innerHTML = item.descricao
+        document.getElementById(`observacao${id}`).innerHTML = item.observacao
+
+        const btn = document.getElementById(`item${id}`)
+        const line = document.getElementById(`line${id}`)
+        const editBtn = document.getElementById(`itemID${id}`)
+
+        if(item.editando === "true"){
+            line.classList.add("linha-editing")
+
+            caixas.contentEditable = true
+            pacotes.contentEditable = true
+            macos.contentEditable = true
+            sku.contentEditable = true
+
+            editBtn.innerText = "Salvar"
+            editBtn.dataset.editing = "true"
+        }
+
+        if(item.status === "true"){
+            btn.classList.add("ativo")
+            line.classList.add("linha-ok")
+            btn.innerText = "OK"
+            btn.dataset.editing = "true"
+        }
+    })
+}
+document.addEventListener("DOMContentLoaded", () =>{
+    const estadoSalvo = carregarEstado()
+
+    if(estadoSalvo && estadoSalvo.length > 0){
+        iniciarComEstadoSalvo()
+    }
+})
+const iniciarComEstadoSalvo = () => {
+    const mainGet = document.getElementById("mainGet")
+
+    if (mainGet) {
+        removeElement(mainGet)
+    }
+
+    classBody()
+
+    newElement('header', 'body', headerTitle)
+    newElement('main', 'body', cabecalho)
+    newElement('footer', 'body', footer)
+
+    const container = document.getElementById("list")
+
+    const estado = carregarEstado()
+
+    estado.forEach(item => {
+        const div = document.createElement("div")
+
+        div.id = `line${item.id}`
+        div.classList.add("linha")
+
+        div.innerHTML = `
+            <div class="reservado" id="reservado${item.id}">${item.reservado}</div>
+            <div class="posicao" id="posicao${item.id}">${item.posicao}</div>
+            <div class="caixas" data-original="${item.originalCaixas}" id="caixas${item.id}">${item.caixas}</div>
+            <div class="pacotes" data-original="${item.originalPacotes}" id="pacotes${item.id}">${item.pacotes}</div>
+            <div class="macos" data-original="${item.originalMacos}" id="macos${item.id}">${item.macos}</div>
+            <div class="sku" data-original="${item.originalSku}" id="sku${item.id}">${item.sku}</div>
+            <div class="descricao" id="descricao${item.id}">${item.descricao}</div>
+            <div class="observacao" id="observacao${item.id}">${item.observacao}</div>
+            <div class="status">
+                <button class="status-btn ${item.status === "true" ? "ativo" : ""}" 
+                        id="item${item.id}" 
+                        data-editing="${item.status}">
+                    ${item.status === "true" ? "OK" : "*"}
+                </button>
+            </div>
+            <div class="edite">
+                <button class="edit-btn" id="itemID${item.id}" data-editing="false">
+                    Editar
+                </button>
+            </div>
+        `
+
+        if(item.status === "true"){
+            div.classList.add("linha-ok")
+        }
+
+        container.appendChild(div)
+    })
+
+    initializeEffects()
+    setUpDivergencesPage()
+    saveData()
+}
+const resetPage = () =>{
+    // if(confirm("Tem certeza que deseja importar um novo relatório? O estado atual será perdido.")){
+        limparEstado()
+        window.location.reload()
+    // }
 }
