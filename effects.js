@@ -48,7 +48,13 @@ initializeEffects = () =>{
                                 save_btn.disabled = false
                                 return
                         }
-                        divergencesBtn.classList.remove("divergences-btn-ativo")
+                        if(divergencesBtn && save_btn){
+                                divergencesBtn.classList.remove("divergences-btn-ativo")
+                                save_btn.classList.remove("save-btn-ativo")
+                                divergencesBtn.disabled = true
+                                save_btn.disabled = true
+                        }
+
                         salvarEstado()
                 })
 
@@ -86,7 +92,7 @@ initializeEffects = () =>{
                                 buttonEdit.dataset.editing = "true"
 
                                 line.classList.add("linha-editing")
-                                }
+                        }
                 })
         })
 }

@@ -47,10 +47,12 @@ const setUpDivergencesPage = () =>{
         const divergencias = coletarDivergencias()
 
         // document.body.innerHTML = htmlDivergencias()
-        const main = document.querySelector("main")
-        main.innerHTML = htmlDivergencias()
+        // const main = document.querySelector("main")
+        // main.innerHTML = htmlDivergencias()
+        const listContainer = document.getElementById("list")
+        listContainer.innerHTML = ""
 
-        const container = document.getElementById("resultadoDivergencias")
+        const container = document.getElementById("list") || document.getElementById("resultadoDivergencias")
 
         if(divergencias.length === 0){
             container.innerHTML = "<p>Não foram encontradas divergências</p>"
@@ -200,7 +202,7 @@ const printBtn = (id) =>{
                 <header id="cabecalhoPrint"><p>Relatório de contagem de Estoque -------- ${day()}</p></header>
                 ${cabecalho}
                 ${conteudo}
-                <foote><p>Hora início:_____ Hora fim:______ Ass Responsavel:______________ Ass Conferente:______________ </p></footer>
+                <footer><p>Hora início:_____ Hora fim:______ Ass Responsavel:______________ Ass Conferente:______________ </p></footer>
             </body>
         </html>
     `)
@@ -276,6 +278,11 @@ const restaurarEstado = () =>{
 
         if(item.editando === "true"){
             line.classList.add("linha-editing")
+
+            const caixas = document.getElementById(`caixas${id}`)
+            const pacotes = document.getElementById(`pacotes${id}`)
+            const macos = document.getElementById(`macos${id}`)
+            const sku = document.getElementById(`sku${id}`)
 
             caixas.contentEditable = true
             pacotes.contentEditable = true
@@ -361,4 +368,8 @@ const iniciarComEstadoSalvo = () => {
 const resetPage = () =>{
         limparEstado()
         window.location.reload()
+}
+const back = (dataJson) =>{
+    changeData(dataJson)
+    initializeEffects()
 }
