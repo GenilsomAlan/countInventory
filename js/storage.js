@@ -1,6 +1,6 @@
-import { CLASSES } from "./constants.js"
+import { CLASSES, STORAGE_KEYS } from "./constants.js"
 
-const STORAGE_KEY = "inventarioEstado"
+const STORAGE_KEY = STORAGE_KEYS.inventory
 
 export const salvarEstado = () =>{
     const estado = capturaEstadoAtual()
@@ -107,4 +107,15 @@ export const carregarDivergenciasEstado = () =>{
 }
 export const limparDivergenciasEstado = () =>{
     localStorage.removeItem("divergenciasEstado")
+}
+export const salvarPaginaAtual = (page) => {
+    localStorage.setItem(STORAGE_KEYS.currentPage, page)
+}
+
+export const carregarPaginaAtual = () => {
+    return localStorage.getItem(STORAGE_KEYS.currentPage)
+}
+
+export const limparPaginaAtual = () => {
+    localStorage.removeItem(STORAGE_KEYS.currentPage)
 }

@@ -5,8 +5,11 @@ import { saveData } from "../saveData.js"
 import { setUpDivergencesPage } from "../divergences.js"
 import { getById, removeElement } from "../helpers.js"
 import { IDS } from "../constants.js"
+import { salvarPaginaAtual } from "../storage.js"
+import { PAGE_TYPES } from "../constants.js"
 
 export const renderMainPage = (json) => {
+    salvarPaginaAtual(PAGE_TYPES.MAIN)
     document.body.dataset.page = "main"
     const mainGet = getById(IDS.mainGet)
 
@@ -23,6 +26,7 @@ export const renderMainPage = (json) => {
 }
 
 export const renderSavedStatePage = () => {
+    salvarPaginaAtual(PAGE_TYPES.MAIN)
     document.body.dataset.page = "main"
     const estadoSalvo = carregarEstado()
 

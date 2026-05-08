@@ -27,7 +27,9 @@ export const SELECTORS = {
     observacao: ".observacao"
 }
 export const STORAGE_KEYS = {
-    inventory: "inventarioEstado"
+    inventory: "inventarioEstado",
+    divergences: "divergenciasEstado",
+    currentPage: "currentPage"
 }
 export const BUTTON_TEXTS = {
     edit: "Editar",
@@ -37,5 +39,5 @@ export const BUTTON_TEXTS = {
 }
 export const PAGE_TYPES = {
     MAIN: "main",
-    DIVERGENCES: "divergences"
+    DIVERGENCES: "divergences",
 }

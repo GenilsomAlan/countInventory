@@ -4,8 +4,11 @@ import { createTableHeader } from "../layout.js"
 import { initializeEffects } from "../events.js"
 import { renderSavedStatePage } from "./mainPage.js"
 import { carregarDivergenciasEstado, salvarDivergenciasEstate, limparDivergenciasEstado } from "../storage.js"
+import { salvarPaginaAtual } from "../storage.js"
+import { PAGE_TYPES } from "../constants.js"
 
 export const renderDivergencesPage = () => {
+    salvarPaginaAtual(PAGE_TYPES.DIVERGENCES)
     document.body.dataset.page = "divergences"
     
     const divergenciasSalvas = carregarDivergenciasEstado()
