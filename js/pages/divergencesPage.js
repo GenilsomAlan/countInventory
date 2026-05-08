@@ -6,6 +6,7 @@ import { renderSavedStatePage } from "./mainPage.js"
 import { carregarDivergenciasEstado, salvarDivergenciasEstate, limparDivergenciasEstado } from "../storage.js"
 import { salvarPaginaAtual } from "../storage.js"
 import { PAGE_TYPES } from "../constants.js"
+import { saveData } from "../saveData.js"
 
 export const renderDivergencesPage = () => {
     salvarPaginaAtual(PAGE_TYPES.DIVERGENCES)
@@ -19,17 +20,21 @@ export const renderDivergencesPage = () => {
     document.body.innerHTML = ""
 
     newElement("header", "body", "<h1>Divergências Encontradas</h1>")
-    newElement("main", "body", 
-         `
-            ${createTableHeader()}
-            <div class="buttonsOptions">
-                <button id="backButton">
-                    Voltar
-                </button>
-            </div>
+    newElement("main", "body", createTableHeader())
+    newElement("footer", "body", `
+        <div class="buttonsOptions">
+            <button id="save" class="save-btn" type="button">
+                Salvar
+            </button>
+            <button id="backButton" class="divergences-btn">
+                Voltar
+            </button>
+            <button id="reset" class="reset-btn" type="button">
+                Importar novo relatório
+            </button>
+        </div>
         `
     )
-
     configurarBotaoVoltar()
 
     const container = document.getElementById("list")
@@ -48,6 +53,7 @@ export const renderDivergencesPage = () => {
 
     initializeEffects()
     configurarBotaoVoltar()
+    saveData()
 }
 
 const criarBotaoVoltar = () => {

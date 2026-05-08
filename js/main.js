@@ -14,9 +14,8 @@ document.addEventListener("DOMContentLoaded", () => {
         renderSavedStatePage()
     }
     configurarGeracaoTabela()
-    configurarReset()
+    initializeGlobalEvents()
 })
-
 const configurarGeracaoTabela = () => { 
     const gerarBtn = document.getElementById(IDS.generate)
 
@@ -32,12 +31,13 @@ const configurarGeracaoTabela = () => {
         renderMainPage(json)
     })
 }
-
-const configurarReset = () => {
-    document.addEventListener("click", (event) => {
-        if (event.target.id !== IDS.reset) return
-
+const initializeGlobalEvents = () => {
+    document.addEventListener("click", handleGlobalClick)
+}
+const handleGlobalClick = (event) => {
+    const target = event.target
+    if(target.id === IDS.reset){
         limparEstado()
         window.location.reload()
-    })
+    }
 }
