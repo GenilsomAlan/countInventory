@@ -1,4 +1,4 @@
-import { salvarEstado } from "./storage.js"
+import { salvarEstado, salvarDivergenciasEstate, limparDivergenciasEstado } from "./storage.js"
 import { verificarEncerramentoDaContagem } from "./utils.js"
 import { IDS, CLASSES } from "./constants.js"
 import { getById } from "./helpers.js"
@@ -43,7 +43,7 @@ const toggleStatus = (buttonStatus) =>{
         buttonStatus.innerHTML = ativo ? "&#10003;" : "*"
         buttonStatus.dataset.editing = ativo ? "true" : "false"
 
-        salvarEstado()
+        salvarEstadoAtual       ()
         updateButtonsState()
 }
 const toggleEdit = (buttonEdit) =>{
@@ -62,7 +62,7 @@ const toggleEdit = (buttonEdit) =>{
         }else{
                 enableEdition(line, buttonEdit)
         }
-        salvarEstado()
+        salvarEstadoAtual()
 }
 const enableEdition = (line, buttonEdit) =>{
         setEditable(line, true)
@@ -98,4 +98,28 @@ const updateButtonsState = () =>{
         saveBtn.disabled = !completed
         divergencesBtn.classList.toggle("divergences-btn-ativo", completed)
         saveBtn.classList.toggle("save-btn-ativo", completed)
+}
+const salvarEstadoAtual = () => {
+        const page = document.body.dataset.page
+        if(page === "divergences"){
+                const linhas = document.querySelectorAll(".linha")
+                const estado = [...linhas].map(linha => {
+                        return {
+                                reservado: linha.querySelector(".reservado").innerText,
+                                posicao: linha.querySelector(".posicao").innerText,
+                                caixas: linha.querySelector(".caixas").innerText,
+                                pacotes: linha.querySelector(".pacotes").innerText,
+                                macos: linha.querySelector(".macos").innerText,
+                                sku: linha.querySelector(".sku").innerText,
+                                descricao: linha.querySelector(".descricao").innerText,
+                                observacao: linha.querySelector(".observacao").innerText,
+                                status: linha.querySelector(".status-btn").dataset.editing,
+                                editando: linha.querySelector(".edit-btn").dataset.editing
+                        }
+                })
+                salvarDivergenciasEstate(estado)
+                return
+        }
+        limparDivergenciasEstado()
+        salvarEstado()
 }

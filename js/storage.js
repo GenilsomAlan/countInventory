@@ -97,3 +97,14 @@ const setStatusState = (line, button, active) =>{
     button.classList.toggle(CLASSES.ativo, active)
     line.classList.toggle(CLASSES.linhaOk, active)
 }
+export const salvarDivergenciasEstate = (estado) =>{
+    localStorage.setItem("divergenciasEstado", JSON.stringify(estado))
+}
+export const carregarDivergenciasEstado = () =>{
+    const estado = localStorage.getItem("divergenciasEstado")
+    if(!estado) return
+    return JSON.parse(estado)
+}
+export const limparDivergenciasEstado = () =>{
+    localStorage.removeItem("divergenciasEstado")
+}

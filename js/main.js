@@ -1,71 +1,34 @@
-import { changeData, classBody, iniciarComEstadoSalvo } from "./table.js"
-import { initializeEffects } from "./events.js"
-import { restaurarEstado, carregarEstado, limparEstado } from "./storage.js"
-import { saveData } from "./saveData.js"
-import { setUpDivergencesPage } from "./divergences.js"
-import { getById, removeElement } from "./helpers.js"
-import { IDS } from "./constants.js"
+import { renderMainPage, renderSavedStatePage }from "./pages/mainPage.js"
+import { limparEstado } from "./storage.js"
 import { getJsonData } from "./xlsx-reader.js"
-
-const gerarTabelaBtn = getById(IDS.generate)
-const mainGet = getById(IDS.mainGet)
+import { IDS } from "./constants.js"
 
 document.addEventListener("DOMContentLoaded", () => {
-    verificarEstadoSalvo()
-    configurarGeracaoTabela()
-    configurarReset()
-})
-
-const verificarEstadoSalvo = () => {
-    const estadoSalvo = carregarEstado()
-
-    if (!estadoSalvo || estadoSalvo.length === 0) return
-
-    iniciarAplicacaoComEstado()
-}
-
-const iniciarAplicacaoComEstado = () => {
-    if (mainGet) {
-        removeElement(mainGet)
+        renderSavedStatePage()
+        configurarGeracaoTabela()
+        configurarReset()
     }
+)
 
-    classBody()
-    iniciarComEstadoSalvo()
-    initializeEffects()
-    setUpDivergencesPage()
-    saveData()
-}
+const configurarGeracaoTabela = () => { 
+    const gerarBtn = document.getElementById(IDS.generate)
 
-const configurarGeracaoTabela = () => {
-    if (!gerarTabelaBtn) return
+    if (!gerarBtn) return
 
-    gerarTabelaBtn.addEventListener("click", () => {
+    gerarBtn.addEventListener("click", () => {
         const json = getJsonData()
+
         if (!json) {
             alert("Importe o arquivo .xlsx")
             return
         }
-        iniciarNovaTabela(json)
+        renderMainPage(json)
     })
-}
-
-const iniciarNovaTabela = (json) => {
-    if (mainGet) {
-        removeElement(mainGet)
-    }
-
-    classBody()
-    changeData(json)
-    restaurarEstado()
-    initializeEffects()
-    setUpDivergencesPage()
-    saveData()
 }
 
 const configurarReset = () => {
     document.addEventListener("click", (event) => {
-        const target = event.target
-        if (target.id !== IDS.reset) return
+        if (event.target.id !== IDS.reset) return
 
         limparEstado()
         window.location.reload()

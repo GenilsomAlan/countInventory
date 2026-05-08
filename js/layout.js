@@ -9,7 +9,6 @@ export const createHeader = () => {
 }
 
 export const createTableHeader = () => {
-
     return `
         <div class="cabecalho">
             <div class="reservado">

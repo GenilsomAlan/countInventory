@@ -35,3 +35,7 @@ export const BUTTON_TEXTS = {
     checked: "✓",
     unchecked: "*"
 }
+export const PAGE_TYPES = {
+    MAIN: "main",
+    DIVERGENCES: "divergences"
+}

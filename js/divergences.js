@@ -2,6 +2,7 @@ import { renderTable, clearTable } from "./table.js"
 import { initializeEffects } from "./events.js"
 import { IDS } from "./constants.js"
 import { getById } from "./helpers.js"
+import { renderDivergencesPage } from "./pages/divergencesPage.js"
 
 export const coletarDivergencias = () => {
     const linhas = document.querySelectorAll('.linha')
@@ -40,9 +41,11 @@ export const coletarDivergencias = () => {
     return divergencias
 }
 export const setUpDivergencesPage = () =>{
-    const button = getById(IDS.divergences)
-    if(!button) return
-    button.addEventListener("click", handleDivergences)
+    const btn = getById(IDS.divergences)
+    if(!btn) return
+    btn.addEventListener("click", () =>{
+        renderDivergencesPage()
+    })
 }
 const handleDivergences = () => {
     const divergences = coletarDivergencias()

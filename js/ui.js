@@ -44,3 +44,37 @@ export const createLineHTML = (item, id) =>{
         </div>
     `
 }
+export const createDivergenceLine = (item, id) => {
+    return `
+        <div class="reservado">
+            <p>${item.reservado}</p>
+        </div>
+        <div class="posicao">
+            <p>${item.posicao}</p>
+        </div>
+        <div class="caixas">
+            ${item.caixas}
+        </div>
+        <div class="pacotes">
+            ${item.pacotes}
+        </div>
+        <div class="macos">
+            ${item.macos}
+        </div>
+        <div class="sku">
+            <p>${item.sku}</p>
+        </div>
+        <div class="descricao">
+            <p>${item.descricao}</p>
+        </div>
+        <div class="observacao">
+            <p>${item.observacao}</p>
+        </div>
+        <div class="status">
+            <button class="status-btn" id="item${id}" data-editing="false">*</button>
+        </div>
+        <div class="edite">
+            <button class="edit-btn" id="itemID${id}" data-editing="false">Editar</button>
+        </div>
+    `
+}
