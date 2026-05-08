@@ -3,7 +3,11 @@ import { IDS } from "./constants.js"
 import { createTableHeader } from "./layout.js"
 import { day } from "./helpers.js"
 
+let initialized = false
+
 export const saveData = () => {
+    if(initialized) return
+
     const saveBtn = getById(IDS.save)
 
     if (!saveBtn) return
@@ -12,6 +16,7 @@ export const saveData = () => {
         event.preventDefault()
         printTable(IDS.list)
     })
+    initialized = true
 }
 const printTable = (id) => {
 

@@ -72,7 +72,7 @@ const restoreLineState = (item) =>{
     }
 
     if(item.status === "true"){
-        setEditableState(line, statusBtn, false)
+        setStatusState(line, statusBtn, false)
     }
 }
 const setContent = (id, value) =>{
