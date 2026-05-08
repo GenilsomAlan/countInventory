@@ -1,5 +1,5 @@
 import { renderMainPage, renderSavedStatePage }from "./pages/mainPage.js"
-import { limparEstado } from "./storage.js"
+import { limparDivergenciasEstado, limparEstado } from "./storage.js"
 import { getJsonData } from "./xlsx-reader.js"
 import { IDS } from "./constants.js"
 import { carregarPaginaAtual } from "./storage.js"
@@ -38,6 +38,8 @@ const handleGlobalClick = (event) => {
     const target = event.target
     if(target.id === IDS.reset){
         limparEstado()
+        limparDivergenciasEstado()
+        localStorage.removeItem("currentPage")
         window.location.reload()
     }
 }

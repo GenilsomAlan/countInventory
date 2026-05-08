@@ -51,7 +51,7 @@ export const renderDivergencesPage = () => {
         container.appendChild(div)
     })
 
-    initializeEffects()
+    initializeEffects({ forceEnableButtons: true })
     configurarBotaoVoltar()
     saveData()
 }

@@ -3,7 +3,9 @@ import { verificarEncerramentoDaContagem } from "./utils.js"
 import { IDS, CLASSES } from "./constants.js"
 import { getById } from "./helpers.js"
 
-export const initializeEffects = () =>{
+export const initializeEffects = ( options = {} ) =>{
+        const { forceEnableButtons = false } = options
+
         const container = getById(IDS.list) || getById(IDS.resultadoDivergencias)
 
         if(!container) return
@@ -11,7 +13,12 @@ export const initializeEffects = () =>{
         if(container.dataset.listener === "true") return
         container.addEventListener("click", handleClick)
         container.dataset.listener = "true"
-        updateButtonsState()
+        
+        if(forceEnableButtons){
+                enableActionButtons()
+        }else{
+                updateButtonsState()
+        }
 }
 const handleClick = (event) =>{
         const target = event.target
@@ -43,7 +50,7 @@ const toggleStatus = (buttonStatus) =>{
         buttonStatus.innerHTML = ativo ? "&#10003;" : "*"
         buttonStatus.dataset.editing = ativo ? "true" : "false"
 
-        salvarEstadoAtual       ()
+        salvarEstadoAtual()
         updateButtonsState()
 }
 const toggleEdit = (buttonEdit) =>{
@@ -98,6 +105,19 @@ const updateButtonsState = () =>{
         saveBtn.disabled = !completed
         divergencesBtn.classList.toggle("divergences-btn-ativo", completed)
         saveBtn.classList.toggle("save-btn-ativo", completed)
+}
+const enableActionButtons = () => {
+        const divergencesBtn = document.querySelector(".divergences-btn")
+        const saveBtn = getById(IDS.save)
+
+        if(divergencesBtn){
+                divergencesBtn.disabled = false
+                divergencesBtn.classList.add("divergences-btn-ativo")
+        }
+        if(saveBtn){
+                saveBtn.disabled = false
+                saveBtn.classList.add("save-btn-ativo")
+        }
 }
 const salvarEstadoAtual = () => {
         const page = document.body.dataset.page
