@@ -488,6 +488,7 @@ footer {
 /* =========================
    MOBILE
 ========================= */
+/*
 @media (max-width: 768px) {
 
     .cabecalho {
@@ -543,10 +544,11 @@ footer {
         font-size: 14px;
     }
 }
-
+*/
 /* =========================
    MOBILE PEQUENO
 ========================= */
+/*
 @media (max-width: 480px) {
 
     h1 {
@@ -577,3 +579,4 @@ footer {
         font-size: 12px;
     }
 }
+*/
