@@ -6,8 +6,11 @@ import { carregarPaginaAtual } from "./storage.js"
 import { PAGE_TYPES } from "./constants.js"
 import { renderDivergencesPage } from "./pages/divergencesPage.js"
 
+//Event listener executa a função anonima assim que a pagina finaliza o carregamento
 document.addEventListener("DOMContentLoaded", () => {
+    //armazena o valor retornado da função atribuida
     const currentPage = carregarPaginaAtual()
+    //se a pagina for a de divergencias irá renderizar a pagina de divergencias
     if(currentPage === PAGE_TYPES.DIVERGENCES){
         renderDivergencesPage()
     } else {

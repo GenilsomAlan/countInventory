@@ -109,10 +109,12 @@ export const limparDivergenciasEstado = () =>{
     localStorage.removeItem("divergenciasEstado")
 }
 export const salvarPaginaAtual = (page) => {
+    //salva no localStorage a pagina atual
     localStorage.setItem(STORAGE_KEYS.currentPage, page)
 }
 
 export const carregarPaginaAtual = () => {
+    //pega no localstorage a informação de qual pagina o usuário está
     return localStorage.getItem(STORAGE_KEYS.currentPage)
 }
 
