@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if(currentPage === PAGE_TYPES.DIVERGENCES){
         renderDivergencesPage()
     } else {
+        // renderiza pagina com o estado salvo
         renderSavedStatePage()
     }
     configurarGeracaoTabela()
